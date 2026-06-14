@@ -113,33 +113,40 @@
             pointer-events: none;
         }
         .container { width: 100%; max-width: 1400px; z-index: 1; }
-        @media (max-width: 768px) {
-    header { flex-direction: column; gap: 15px; margin-bottom: 30px; }
-    
-    /* Settings Menu Overlay Fix */
+       @media (max-width: 768px) {
+    /* FORCE THE SETTINGS MENU OFF-SCREEN */
     .settings-drawer {
-        width: 100% !important; /* Drawer is full width on mobile */
-        right: -100%;
-        z-index: 9999;
+        width: 100vw !important;
+        right: -100vw !important;
+        background: rgba(10, 14, 22, 0.98) !important;
     }
-    .settings-drawer.open { right: 0; }
+    .settings-drawer.open {
+        right: 0 !important;
+    }
 
-    /* Calendar Fix */
-    .calendar-cell-events-container {
-        display: flex;
-        flex-direction: column;
-        overflow-y: visible;
+    /* FIX CALENDAR SKEWING */
+    #calendar-panel {
+        height: auto !important; /* Remove the 520px fixed height */
+        min-height: 300px;
     }
-    .calendar-inline-entry {
-        font-size: 0.55rem;
-        padding: 1px 2px;
-        white-space: normal;
-        line-height: 1;
-        height: auto;
+    
+    .calendar-days-grid {
+        display: grid !important; /* Switch to CSS Grid for better control */
+        grid-template-columns: repeat(7, 1fr);
+        height: auto !important;
     }
+
     .calendar-day-cell {
-        height: auto;
-        min-height: 45px;
+        width: 100% !important;
+        height: 60px !important; /* Fixed row height prevents skewing */
+        overflow: hidden; /* Prevent text from breaking the grid */
+    }
+
+    .calendar-inline-entry {
+        font-size: 0.5rem;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
     }
     /* Stop the controls container from pushing layout */
     .controls-container { position: static; transform: none; margin-top: 10px; }
@@ -172,6 +179,8 @@
             flex-direction: column;
             gap: 24px;
             transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto; /* Adds a scrollbar if content is taller than the phone screen */
+            padding-bottom: 50px; /* Ensures the bottom button isn't hugged against the edge */
         }
         .settings-drawer.open { right: 0; }
         .settings-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px; }
@@ -1055,14 +1064,13 @@ document.getElementById('close-settings-btn').addEventListener('click', () => {
     });
 
     resetBtn.addEventListener('click', () => {
-        if (confirm("⚠️ Destructive Reset: Clear all local transactions, log states, and customization hooks?")) {
-            localStorage.clear();
-            transactions = []; deletedExceptions = [];
-            document.body.style.backgroundImage = '';
-            init();
-            drawer.className = 'settings-drawer';
-        }
-    });
+    if (confirm("⚠️ Reset Budget? This will wipe all data. Make sure you saved!")) {
+        localStorage.clear();
+        transactions = [];
+        deletedExceptions = [];
+        location.reload(); // The safest way to "reset" the UI entirely
+    }
+});
 
     // ── Panel resize ──────────────────────────────────────────────────────────
     function initStationaryFullWidthResizerEngine() {
