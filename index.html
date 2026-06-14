@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pro Budget</title>
     <style>
+
+        #input-panel {
+    min-height: auto !important; /* Forces it to fit content only */
+    height: auto !important;     /* Prevents any fixed height styles */
+    padding-bottom: 24px !important;
+}
+
+/* Ensure the handle logic doesn't try to add padding for a handle */
+#input-panel .panel-height-handle {
+    display: none !important;
+}
+
         :root {
             --bg-base: #05070c;
             --text-main: #f1f5f9;
@@ -452,7 +464,7 @@
                 <div id="total-income" class="value income">$0.00</div>
             </div>
             <div class="projection-row">
-                <span>Scheduled Remaining:</span>
+                <span>Upcoming income:</span>
                 <span id="scheduled-income-val" class="proj-val cyan-tint">$0.00</span>
             </div>
         </div>
@@ -463,7 +475,7 @@
                 <div id="total-expenses" class="value expense">$0.00</div>
             </div>
             <div class="projection-row">
-                <span>Upcoming Remaining:</span>
+                <span>Upcoming expenses:</span>
                 <span id="upcoming-expenses-val" class="proj-val coral-tint">$0.00</span>
             </div>
         </div>
@@ -1074,17 +1086,11 @@ document.getElementById('close-settings-btn').addEventListener('click', () => {
 
     // ── Panel resize ──────────────────────────────────────────────────────────
     function initStationaryFullWidthResizerEngine() {
-    // 1. Check if the screen is mobile-width or if the device supports touch
-    const isMobile = window.innerWidth <= 768 || ('ontouchstart' in window);
+    // 1. Skip if mobile
+    if (window.innerWidth <= 768 || ('ontouchstart' in window)) return;
 
-    if (isMobile) {
-        // Remove existing handles if they were created and the user resized to mobile
-        document.querySelectorAll('.panel-height-handle').forEach(h => h.remove());
-        return;
-    }
-
-    // 2. Only run the drag logic if we are on a desktop
-    document.querySelectorAll('.glass-panel:not(.card)').forEach(panel => {
+    // 2. Select all panels EXCEPT the input-panel
+    document.querySelectorAll('.glass-panel:not(.card):not(#input-panel)').forEach(panel => {
         if (panel.querySelector('.panel-height-handle')) return;
         
         const handle = document.createElement('div');
@@ -1107,13 +1113,11 @@ document.getElementById('close-settings-btn').addEventListener('click', () => {
             const onUp = (ue) => {
                 handle.releasePointerCapture(ue.pointerId);
                 handle.classList.remove('active-dragging-handle');
-                const key = panel.getAttribute('data-panel-id') || panel.getAttribute('id');
+                const key = panel.getAttribute('id');
                 if (key) localStorage.setItem(`heightProfile_${key}`, panel.style.height);
-                
                 window.removeEventListener('pointermove', onMove);
                 window.removeEventListener('pointerup', onUp);
             };
-            
             window.addEventListener('pointermove', onMove);
             window.addEventListener('pointerup', onUp);
         });
