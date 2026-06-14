@@ -203,7 +203,7 @@
         .controls-container {
             position: absolute;
             right: 0;
-            top: 50%;
+            top: 100%;
             transform: translateY(-50%);
         }
 
@@ -585,9 +585,11 @@
     </style>
 </head>
 <body>
+    
 
 <div class="grid-overlay"></div>
 <input type="file" id="wallpaper-input" accept="image/*" style="display: none;">
+
 
 <div class="settings-drawer" id="settings-drawer">
     <div class="settings-header">
@@ -617,7 +619,7 @@
 
 <header>
     <div class="scene">
-        <div class="cube" id="logo-cube">
+        <div class="cube">
             <div class="face front">PB</div>
             <div class="face back"></div>
             <div class="face right"></div>
@@ -626,11 +628,17 @@
             <div class="face bottom"></div>
         </div>
     </div>
+
     <h1>Pro Budget</h1>
-    <!-- ... controls ... -->
+
+    <div class="controls-container">
+        <button class="ctrl-btn" id="open-settings-btn">⚙️ Settings</button>
+    </div>
 </header>
 
+
 <div class="container">
+    
     <div class="dashboard">
         <div class="glass-panel card income-card" id="income-main-card">
             <div>
