@@ -1036,34 +1036,51 @@
 
     // ── Panel resize ──────────────────────────────────────────────────────────
     function initStationaryFullWidthResizerEngine() {
-        document.querySelectorAll('.glass-panel:not(.card)').forEach(panel => {
-            if (panel.querySelector('.panel-height-handle')) return;
-            const handle = document.createElement('div');
-            handle.className = 'panel-height-handle';
-            panel.appendChild(handle);
-            handle.addEventListener('pointerdown', (e) => {
-                e.preventDefault();
-                handle.setPointerCapture(e.pointerId);
-                handle.classList.add('active-dragging-handle');
-                const baseY = e.clientY;
-                const startH = panel.offsetHeight;
-                const onMove = (me) => {
-                    const h = startH + (me.clientY - baseY);
-                    if (h >= 180 && h <= 900) panel.style.height = `${h}px`;
-                };
-                const onUp = (ue) => {
-                    handle.releasePointerCapture(ue.pointerId);
-                    handle.classList.remove('active-dragging-handle');
-                    const key = panel.getAttribute('data-panel-id') || panel.getAttribute('id');
-                    if (key) localStorage.setItem(`heightProfile_${key}`, panel.style.height);
-                    window.removeEventListener('pointermove', onMove);
-                    window.removeEventListener('pointerup', onUp);
-                };
-                window.addEventListener('pointermove', onMove);
-                window.addEventListener('pointerup', onUp);
-            });
-        });
+    // 1. Check if the screen is mobile-width or if the device supports touch
+    const isMobile = window.innerWidth <= 768 || ('ontouchstart' in window);
+
+    if (isMobile) {
+        // Remove existing handles if they were created and the user resized to mobile
+        document.querySelectorAll('.panel-height-handle').forEach(h => h.remove());
+        return;
     }
+
+    // 2. Only run the drag logic if we are on a desktop
+    document.querySelectorAll('.glass-panel:not(.card)').forEach(panel => {
+        if (panel.querySelector('.panel-height-handle')) return;
+        
+        const handle = document.createElement('div');
+        handle.className = 'panel-height-handle';
+        panel.appendChild(handle);
+        
+        handle.addEventListener('pointerdown', (e) => {
+            e.preventDefault();
+            handle.setPointerCapture(e.pointerId);
+            handle.classList.add('active-dragging-handle');
+            
+            const baseY = e.clientY;
+            const startH = panel.offsetHeight;
+            
+            const onMove = (me) => {
+                const h = startH + (me.clientY - baseY);
+                if (h >= 180 && h <= 900) panel.style.height = `${h}px`;
+            };
+            
+            const onUp = (ue) => {
+                handle.releasePointerCapture(ue.pointerId);
+                handle.classList.remove('active-dragging-handle');
+                const key = panel.getAttribute('data-panel-id') || panel.getAttribute('id');
+                if (key) localStorage.setItem(`heightProfile_${key}`, panel.style.height);
+                
+                window.removeEventListener('pointermove', onMove);
+                window.removeEventListener('pointerup', onUp);
+            };
+            
+            window.addEventListener('pointermove', onMove);
+            window.addEventListener('pointerup', onUp);
+        });
+    });
+}
 
     function restoreSavedPanelHeights() {
         document.querySelectorAll('.glass-panel').forEach(panel => {
@@ -1085,6 +1102,7 @@
         syncDashboardAndVisuals();
         initStationaryFullWidthResizerEngine();
     }
+    window.addEventListener('resize', initStationaryFullWidthResizerEngine);
     init();
 </script>
 </body>
