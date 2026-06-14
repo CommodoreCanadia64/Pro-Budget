@@ -9,155 +9,54 @@
             --bg-base: #05070c;
             --text-main: #f1f5f9;
         }
-        /* 3D Container */
-.scene { width: 80px; height: 80px; perspective: 400px; margin-bottom: 20px; }
-
-.cube {
-    width: 100%; height: 100%;
-    position: relative;
-    transform-style: preserve-3d;
-    /* Sets the starting 30-degree angle */
-    transform: rotateY(30deg) rotateX(30deg);
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Spin animation on hover */
-.cube:hover { 
-    transform: rotateY(210deg) rotateX(210deg); /* 30 + 180 */
-}
-
-.face {
-    position: absolute;
-    width: 80px; height: 80px;
-    background: rgba(0, 242, 254, 0.1);
-    border: 2px solid rgba(0, 242, 254, 0.6);
-    backdrop-filter: blur(4px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 900;
-    color: var(--accent-cyan);
-    font-size: 1.2rem;
-    box-shadow: inset 0 0 15px rgba(0, 242, 254, 0.2);
-}
-
-/* Positioning faces in 3D space */
-.front  { transform: rotateY(0deg) translateZ(40px); }
-.back   { transform: rotateY(180deg) translateZ(40px); }
-.right  { transform: rotateY(90deg) translateZ(40px); }
-.left   { transform: rotateY(-90deg) translateZ(40px); }
-.top    { transform: rotateX(90deg) translateZ(40px); }
-.bottom { transform: rotateX(-90deg) translateZ(40px); }
-
-        /* The Glass Monogram Frame */
-        .logo-cube-frame {
-            width: 72px;
-            height: 72px;
-            /* Double-border frame effect */
-            border: 2px solid rgba(0, 242, 254, 0.4);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .scene { width: 80px; height: 80px; perspective: 400px; margin-bottom: 20px; }
+        .cube {
+            width: 100%; height: 100%;
             position: relative;
-            background: rgba(5, 7, 12, 0.6);
-            backdrop-filter: blur(8px);
-            margin-bottom: 10px;
-            
-            /* Isometric 3D tilt */
-            transform: perspective(300px) rotateY(-15deg) rotateX(5deg);
-            transition: transform 0.3s ease;
+            transform-style: preserve-3d;
+            transform: rotateY(30deg) rotateX(30deg);
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        .logo-cube-frame::before {
-            content: '';
+        .cube:hover { transform: rotateY(210deg) rotateX(210deg); }
+        .face {
             position: absolute;
-            inset: 4px; /* Inner frame gap */
-            border: 1px solid rgba(0, 242, 254, 0.2);
-            border-radius: 8px;
-        }
-
-        .logo-cube-frame:hover {
-            transform: perspective(300px) rotateY(0deg) rotateX(0deg) scale(1.05);
-        }
-
-        .logo-text {
-            font-weight: 900;
-            font-size: 1.4rem;
-            color: var(--accent-cyan);
-            text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
-            letter-spacing: -0.5px;
-        }
-
-        body {
-            font-family: system-ui, sans-serif;
-            background-color: var(--bg-base);
-            color: var(--text-main);
-            margin: 0;
-            padding: 40px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* The Header & Logo Fix */
-        header {
-            width: 100%;
-            max-width: 1400px;
-            margin-bottom: 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            text-align: center;
-        }
-
-        .logo-placeholder {
-            width: 72px;
-            height: 72px;
-            background: rgba(0, 242, 254, 0.2);
-            border: 2px solid var(--accent-cyan, #00f2fe);
-            border-radius: 12px;
+            width: 80px; height: 80px;
+            background: rgba(0, 242, 254, 0.1);
+            border: 2px solid rgba(0, 242, 254, 0.6);
+            backdrop-filter: blur(4px);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.5));
+            font-weight: 900;
+            color: var(--accent-cyan);
+            font-size: 1.2rem;
+            box-shadow: inset 0 0 15px rgba(0, 242, 254, 0.2);
         }
-
-        header h1 {
-            font-size: 2.4rem;
-            margin: 0;
-        }
+        .front  { transform: rotateY(0deg) translateZ(40px); }
+        .back   { transform: rotateY(180deg) translateZ(40px); }
+        .right  { transform: rotateY(90deg) translateZ(40px); }
+        .left   { transform: rotateY(-90deg) translateZ(40px); }
+        .top    { transform: rotateX(90deg) translateZ(40px); }
+        .bottom { transform: rotateX(-90deg) translateZ(40px); }
 
         :root {
             --bg-base: #05070c;
             --bg-gradient: radial-gradient(circle at 80% 20%, rgba(21, 41, 58, 0.15) 0%, transparent 50%),
                             radial-gradient(circle at 15% 80%, rgba(49, 16, 66, 0.12) 0%, transparent 50%),
                             linear-gradient(180deg, #05070c 0%, #0b0f19 100%);
-            
             --glass-bg: rgba(13, 17, 26, 0.55);
             --glass-bg-hover: rgba(22, 28, 41, 0.75);
             --glass-border: rgba(255, 255, 255, 0.06);
             --glass-blur: blur(24px);
             --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
-            
             --text-main: #f1f5f9;
             --text-muted: #64748b;
-            
-            --accent-cyan: #00f2fe;    
-            --accent-green: #4ade80;   
-            --accent-coral: #ff5b5b;   
-            
+            --accent-cyan: #00f2fe;
+            --accent-green: #4ade80;
+            --accent-coral: #ff5b5b;
             --input-bg: rgba(5, 7, 12, 0.75);
         }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: var(--bg-gradient);
@@ -175,7 +74,6 @@
             position: relative;
             overflow-x: hidden;
         }
-
         header {
             margin-bottom: 40px;
             display: flex;
@@ -185,13 +83,9 @@
             min-height: 120px;
             position: relative;
             width: 100%;
+            max-width: 1400px;
+            text-align: center;
         }
-
-        header img {
-            height: 64px;
-            filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.4));
-        }
-
         header h1 {
             font-size: 2.4rem;
             font-weight: 700;
@@ -199,40 +93,28 @@
             color: #fff;
             text-shadow: 0 0 20px rgba(0, 242, 254, 0.35);
         }
-
         .controls-container {
             position: absolute;
             right: 0;
             top: 100%;
             transform: translateY(-50%);
         }
-
         .grid-overlay {
-            content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.012) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px);
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
             background-size: 60px 60px;
             z-index: -1;
             pointer-events: none;
         }
-
-        .container {
-            width: 100%;
-            max-width: 1400px;
-            z-index: 1;
-        }
-
+        .container { width: 100%; max-width: 1400px; z-index: 1; }
         @media (max-width: 768px) {
             header { flex-direction: column; gap: 15px; margin-bottom: 30px; }
             .controls-container { position: static; transform: none; }
         }
-
         @media print {
             body { background: white; color: black; padding: 20px; }
             .dashboard, #ledger-panel { display: block !important; width: 100%; }
@@ -242,10 +124,9 @@
             .value, .transaction-amount { color: black !important; }
             .panel-height-handle { display: none !important; }
         }
-
         .ctrl-btn {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
             backdrop-filter: blur(10px);
             color: var(--text-main);
             padding: 8px 14px;
@@ -255,14 +136,11 @@
             cursor: pointer;
             transition: all 0.2s ease;
         }
-        .ctrl-btn:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.2); }
-
+        .ctrl-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
         .settings-drawer {
             position: fixed;
-            top: 0;
-            right: -340px;
-            width: 320px;
-            height: 100vh;
+            top: 0; right: -340px;
+            width: 320px; height: 100vh;
             background: rgba(10, 14, 22, 0.9);
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
@@ -281,18 +159,16 @@
         .setting-section { display: flex; flex-direction: column; gap: 10px; }
         .setting-section h4 { font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px; }
         .action-btn { width: 100%; padding: 12px; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid transparent; }
-        .btn-secondary { background: rgba(255, 255, 255, 0.03); border-color: rgba(255, 255, 255, 0.08); color: var(--text-main); }
-        .btn-secondary:hover { background: rgba(255, 255, 255, 0.08); }
-        .btn-danger { background: rgba(248, 113, 113, 0.1); border-color: rgba(248, 113, 113, 0.2); color: var(--accent-coral); }
-        .btn-danger:hover { background: rgba(248, 113, 113, 0.2); border-color: rgba(248, 113, 113, 0.4); }
-
+        .btn-secondary { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.08); color: var(--text-main); }
+        .btn-secondary:hover { background: rgba(255,255,255,0.08); }
+        .btn-danger { background: rgba(248,113,113,0.1); border-color: rgba(248,113,113,0.2); color: var(--accent-coral); }
+        .btn-danger:hover { background: rgba(248,113,113,0.2); border-color: rgba(248,113,113,0.4); }
         .dashboard {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 24px;
             margin-bottom: 35px;
         }
-
         .glass-panel {
             background: var(--glass-bg);
             backdrop-filter: var(--glass-blur);
@@ -307,21 +183,18 @@
             overflow: hidden;
             min-height: 180px;
         }
-
         .card { position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; padding-bottom: 24px !important; }
         .card::after { content: ''; position: absolute; bottom: 0; left: 10%; width: 80%; height: 2px; opacity: 0.35; }
         .card.income-card::after { background: var(--accent-cyan); box-shadow: 0 0 10px var(--accent-cyan); }
         .card.expense-card::after { background: var(--accent-coral); box-shadow: 0 0 10px var(--accent-coral); }
         .card.balance-card::after { background: #fff; box-shadow: 0 0 10px #fff; }
-
         .card h3 { margin-bottom: 4px; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
         .card .context-lbl { font-size: 0.68rem; color: var(--text-muted); font-weight: 500; margin-bottom: 6px; letter-spacing: 0.3px; }
         .card .value { font-size: 2rem; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -0.5px; }
-        
         .card .projection-row {
             margin-top: 12px;
             padding-top: 10px;
-            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            border-top: 1px solid rgba(255,255,255,0.04);
             font-size: 0.82rem;
             color: var(--text-muted);
             display: flex;
@@ -329,38 +202,23 @@
             align-items: center;
         }
         .projection-row .proj-val { font-weight: 600; font-variant-numeric: tabular-nums; }
-
-        .value.income { color: var(--accent-cyan); text-shadow: 0 0 20px rgba(0, 242, 254, 0.4); }
-        .value.expense { color: var(--accent-coral); text-shadow: 0 0 20px rgba(255, 91, 91, 0.4); }
-        .value.positive-green { color: var(--accent-green); text-shadow: 0 0 20px rgba(74, 222, 128, 0.4); }
+        .value.income { color: var(--accent-cyan); text-shadow: 0 0 20px rgba(0,242,254,0.4); }
+        .value.expense { color: var(--accent-coral); text-shadow: 0 0 20px rgba(255,91,91,0.4); }
+        .value.positive-green { color: var(--accent-green); text-shadow: 0 0 20px rgba(74,222,128,0.4); }
         .value.neutral { color: var(--text-main); text-shadow: none; }
-        
-        .proj-val.coral-tint { color: rgba(255, 91, 91, 0.75); }
-        .proj-val.cyan-tint { color: rgba(0, 242, 254, 0.75); }
-        .proj-val.green-tint { color: rgba(74, 222, 128, 0.75); }
-
-        .workspace-layout {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-
-        form { 
-            display: grid; 
-            grid-template-columns: repeat(5, 1fr); 
-            gap: 16px; 
+        .proj-val.coral-tint { color: rgba(255,91,91,0.75); }
+        .proj-val.cyan-tint { color: rgba(0,242,254,0.75); }
+        .proj-val.green-tint { color: rgba(74,222,128,0.75); }
+        .workspace-layout { display: flex; flex-direction: column; gap: 24px; }
+        form {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
             align-items: end;
             width: 100%;
-        } 
-        
-        .form-submit-wrapper { grid-column: span 1; }
-
-        .workspace-bottom-logs-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
         }
-
+        .form-submit-wrapper { grid-column: span 1; }
+        .workspace-bottom-logs-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
         @media (max-width: 1024px) {
             form { grid-template-columns: repeat(2, 1fr); }
             .form-submit-wrapper { grid-column: span 2; }
@@ -370,12 +228,11 @@
             .form-submit-wrapper { grid-column: span 1; }
             .workspace-bottom-logs-row { grid-template-columns: 1fr; }
         }
-
-        .section-title { 
-            font-size: 1.2rem; 
-            font-weight: 600; 
-            margin-bottom: 20px; 
-            letter-spacing: -0.3px; 
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: -0.3px;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -383,13 +240,11 @@
             padding-bottom: 4px;
             border-bottom: 1px solid transparent;
         }
-
         .form-group { display: flex; flex-direction: column; gap: 6px; }
         label { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
-
         input, select {
             background-color: var(--input-bg);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255,255,255,0.05);
             color: var(--text-main);
             padding: 12px;
             border-radius: 8px;
@@ -399,12 +254,11 @@
         }
         input:focus, select:focus {
             outline: none;
-            border-color: rgba(0, 242, 254, 0.3);
-            background-color: rgba(5, 7, 12, 0.9);
-            box-shadow: 0 0 0 4px rgba(0, 242, 254, 0.06);
+            border-color: rgba(0,242,254,0.3);
+            background-color: rgba(5,7,12,0.9);
+            box-shadow: 0 0 0 4px rgba(0,242,254,0.06);
         }
         input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); opacity: 0.5; cursor: pointer; }
-
         .submit-action-btn {
             background: linear-gradient(90deg, #00c6ff 0%, #00f2fe 100%) !important;
             border: none;
@@ -416,80 +270,53 @@
             font-size: 0.95rem;
             letter-spacing: 0.5px;
             transition: all 0.25s ease;
-            box-shadow: 0 4px 20px rgba(0, 242, 254, 0.3);
+            box-shadow: 0 4px 20px rgba(0,242,254,0.3);
             width: 100%;
         }
-        .submit-action-btn:hover { 
-            transform: translateY(-1px); 
-            box-shadow: 0 6px 24px rgba(0, 242, 254, 0.5); 
-            filter: brightness(1.05); 
-        }
-
-        .log-scroll-wrapper {
-            overflow-y: auto;
-            flex-grow: 1;
-            padding-right: 4px;
-            width: 100%;
-        }
+        .submit-action-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(0,242,254,0.5); filter: brightness(1.05); }
+        .log-scroll-wrapper { overflow-y: auto; flex-grow: 1; padding-right: 4px; width: 100%; }
         .log-scroll-wrapper::-webkit-scrollbar { width: 4px; }
         .log-scroll-wrapper::-webkit-scrollbar-track { background: transparent; }
-        .log-scroll-wrapper::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
-
-        .scroller-list { 
-            list-style: none; 
-            display: flex;
-            flex-direction: column;
-            gap: 10px; 
-            width: 100%;
-        }
-
+        .log-scroll-wrapper::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+        .scroller-list { list-style: none; display: flex; flex-direction: column; gap: 10px; width: 100%; }
         .panel-height-handle {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 10px; 
-            background: linear-gradient(0deg, rgba(0, 242, 254, 0.12) 0%, transparent 100%);
-            border-bottom: 2px solid rgba(0, 242, 254, 0.25);
+            bottom: 0; left: 0;
+            width: 100%; height: 10px;
+            background: linear-gradient(0deg, rgba(0,242,254,0.12) 0%, transparent 100%);
+            border-bottom: 2px solid rgba(0,242,254,0.25);
             cursor: ns-resize;
             transition: background 0.2s, border-color 0.2s;
             z-index: 10;
         }
         .panel-height-handle:hover, .panel-height-handle.active-dragging-handle {
-            background: linear-gradient(0deg, rgba(0, 242, 254, 0.25) 0%, transparent 100%);
+            background: linear-gradient(0deg, rgba(0,242,254,0.25) 0%, transparent 100%);
             border-bottom-color: var(--accent-cyan);
-            box-shadow: 0 -4px 12px rgba(0, 242, 254, 0.15);
+            box-shadow: 0 -4px 12px rgba(0,242,254,0.15);
         }
-
         .transaction-item {
-            background: rgba(255, 255, 255, 0.025);
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            background: rgba(255,255,255,0.025);
+            border: 1px solid rgba(255,255,255,0.04);
             padding: 14px 16px;
             border-radius: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 16px;
-            width: 100%; 
+            width: 100%;
             transition: all 0.2s ease;
         }
-        .transaction-item:hover { 
-            background: var(--glass-bg-hover); 
-            border-color: rgba(255, 255, 255, 0.08); 
-            transform: translateX(2px); 
-        }
-        
+        .transaction-item:hover { background: var(--glass-bg-hover); border-color: rgba(255,255,255,0.08); transform: translateX(2px); }
         .transaction-info { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 0; }
         .transaction-description { font-weight: 600; font-size: 1rem; color: var(--text-main); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
         .transaction-date { font-size: 0.78rem; color: var(--text-muted); display: inline-flex; align-items: center; gap: 4px; }
         .running-total-box { font-size: 0.78rem; color: var(--text-muted); margin-top: 4px; display: inline-flex; gap: 4px; }
         .running-total-value { font-weight: 600; color: #cbd5e1; }
-
         .recurring-badge {
             font-size: 0.68rem;
-            background: rgba(0, 242, 254, 0.08) !important;
+            background: rgba(0,242,254,0.08) !important;
             color: var(--accent-cyan) !important;
-            border: 1px solid rgba(0, 242, 254, 0.2) !important;
+            border: 1px solid rgba(0,242,254,0.2) !important;
             padding: 2px 6px;
             border-radius: 4px;
             font-weight: 600;
@@ -499,56 +326,25 @@
             align-items: center;
             vertical-align: middle;
         }
-
         .transaction-side-metrics { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
         .transaction-amount { font-weight: 700; font-size: 1.05rem; font-variant-numeric: tabular-nums; text-align: right; }
         .transaction-amount.income { color: var(--accent-cyan); }
         .transaction-amount.expense { color: var(--accent-coral); }
-
         .transaction-item.upcoming-expense { border-left: 3px solid var(--accent-coral); }
         .transaction-item.upcoming-income { border-left: 3px solid var(--accent-cyan); }
-
         .delete-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.2rem; padding: 0 2px; line-height: 1; transition: color 0.2s; }
         .delete-btn:hover { color: var(--accent-coral); }
-
         .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-shrink: 0; }
         .calendar-month-title { font-weight: 700; font-size: 1.2rem; letter-spacing: -0.3px; }
         .calendar-nav-buttons { display: flex; gap: 8px; }
-        .calendar-nav-btn { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); color: var(--text-main); padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; }
-        .calendar-nav-btn:hover { background: rgba(255, 255, 255, 0.08); }
-
-        .calendar-grid-wrapper { 
-            display: flex; 
-            flex-direction: column; 
-            flex-grow: 1;
-            min-height: 0;
-            width: 100%;
-        }
-        
-        .calendar-weekdays-row { 
-            display: grid; 
-            grid-template-columns: repeat(7, 1fr); 
-            text-align: center; 
-            font-size: 0.75rem; 
-            font-weight: 600; 
-            color: var(--text-muted); 
-            text-transform: uppercase; 
-            letter-spacing: 0.5px; 
-            padding-bottom: 6px;
-            flex-shrink: 0;
-        }
-        
-        .calendar-days-grid { 
-            display: flex;
-            flex-wrap: wrap;
-            width: 100%;
-            height: 100%;
-            flex-grow: 1;
-        }
-        
+        .calendar-nav-btn { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); color: var(--text-main); padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .calendar-nav-btn:hover { background: rgba(255,255,255,0.08); }
+        .calendar-grid-wrapper { display: flex; flex-direction: column; flex-grow: 1; min-height: 0; width: 100%; }
+        .calendar-weekdays-row { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; padding-bottom: 6px; flex-shrink: 0; }
+        .calendar-days-grid { display: flex; flex-wrap: wrap; width: 100%; height: 100%; flex-grow: 1; }
         .calendar-day-cell {
-            background: rgba(10, 14, 23, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.02);
+            background: rgba(10,14,23,0.3);
+            border: 1px solid rgba(255,255,255,0.02);
             padding: 3px;
             display: flex;
             flex-direction: column;
@@ -556,53 +352,37 @@
             position: relative;
             width: calc((100% / 7) - 2px);
             height: calc((100% / 6) - 2px);
-            min-height: 0; 
+            min-height: 0;
             overflow: hidden;
             flex-shrink: 0;
         }
-
         .calendar-day-cell.empty-cell { background: transparent; border: none; }
-        .calendar-day-cell.current-today-cell { border-color: rgba(0, 242, 254, 0.3); background: rgba(0, 242, 254, 0.03); }
-        
+        .calendar-day-cell.current-today-cell { border-color: rgba(0,242,254,0.3); background: rgba(0,242,254,0.03); }
         .calendar-day-number { font-size: 0.78rem; font-weight: 600; color: var(--text-muted); align-self: flex-start; flex-shrink: 0; }
         .calendar-day-cell.current-today-cell .calendar-day-number { color: var(--accent-cyan); }
-
-        .calendar-cell-events-container { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 2px; 
-            width: 100%; 
-            overflow-y: auto; 
-            flex-grow: 1; 
-            padding-right: 2px; 
-        }
+        .calendar-cell-events-container { display: flex; flex-direction: column; gap: 2px; width: 100%; overflow-y: auto; flex-grow: 1; padding-right: 2px; }
         .calendar-cell-events-container::-webkit-scrollbar { width: 2px; }
         .calendar-cell-events-container::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.05); }
-
         .calendar-inline-entry { font-size: 0.65rem; font-weight: 500; padding: 2px 4px; border-radius: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; line-height: 1.2; border: 1px solid transparent; flex-shrink: 0; }
-        .calendar-inline-entry.entry-income { background: rgba(0, 242, 254, 0.06); color: var(--accent-cyan); border-color: rgba(0, 242, 254, 0.12); }
-        .calendar-inline-entry.entry-expense { background: rgba(255, 91, 91, 0.06); color: var(--accent-coral); border-color: rgba(255, 91, 91, 0.12); }
+        .calendar-inline-entry.entry-income { background: rgba(0,242,254,0.06); color: var(--accent-cyan); border-color: rgba(0,242,254,0.12); }
+        .calendar-inline-entry.entry-expense { background: rgba(255,91,91,0.06); color: var(--accent-coral); border-color: rgba(255,91,91,0.12); }
     </style>
 </head>
 <body>
-    
 
 <div class="grid-overlay"></div>
 <input type="file" id="wallpaper-input" accept="image/*" style="display: none;">
-
 
 <div class="settings-drawer" id="settings-drawer">
     <div class="settings-header">
         <h2>Settings</h2>
         <button class="close-drawer" id="close-settings-btn">&times;</button>
     </div>
-    
     <div class="setting-section">
         <h4>Visual Customization</h4>
         <button class="action-btn btn-secondary" id="select-wall-btn">🎨 Update Wallpaper</button>
         <button class="action-btn btn-secondary" id="reset-wall-btn" style="display: none;">✕ Remove Image</button>
     </div>
-
     <div class="setting-section">
         <h4>Data Management</h4>
         <button class="action-btn btn-secondary" id="export-month-btn">📦 Save Data</button>
@@ -610,7 +390,6 @@
         <button class="action-btn btn-secondary" id="pdf-btn">📄 Download PDF</button>
         <input type="file" id="import-file-input" accept=".json" style="display: none;">
     </div>
-
     <div class="setting-section" style="margin-top: auto;">
         <h4>Danger Zone</h4>
         <button class="action-btn btn-danger" id="master-reset-btn">⚠️ Reset Application</button>
@@ -628,22 +407,19 @@
             <div class="face bottom"></div>
         </div>
     </div>
-
     <h1>Pro Budget</h1>
-
     <div class="controls-container">
         <button class="ctrl-btn" id="open-settings-btn">⚙️ Settings</button>
     </div>
 </header>
 
-
 <div class="container">
-    
     <div class="dashboard">
-        <div class="glass-panel card income-card" id="income-main-card">
+        <div class="glass-panel card income-card">
             <div>
                 <h3>Total Income</h3>
                 <div class="context-lbl" id="income-context-label">Active History</div>
+                <div id="rollover-indicator" style="font-size: 0.65rem; color: var(--accent-green);"></div>
                 <div id="total-income" class="value income">$0.00</div>
             </div>
             <div class="projection-row">
@@ -651,7 +427,7 @@
                 <span id="scheduled-income-val" class="proj-val cyan-tint">$0.00</span>
             </div>
         </div>
-        <div class="glass-panel card expense-card" id="expense-main-card">
+        <div class="glass-panel card expense-card">
             <div>
                 <h3>Total Expenses</h3>
                 <div class="context-lbl" id="expense-context-label">Active History</div>
@@ -662,7 +438,7 @@
                 <span id="upcoming-expenses-val" class="proj-val coral-tint">$0.00</span>
             </div>
         </div>
-        <div class="glass-panel card balance-card" id="balance-main-card">
+        <div class="glass-panel card balance-card">
             <div>
                 <h3>Net Balance</h3>
                 <div class="context-lbl" id="balance-context-label">Active History</div>
@@ -676,7 +452,6 @@
     </div>
 
     <div class="workspace-layout">
-        
         <div class="glass-panel" id="input-panel">
             <div class="section-title">Add Transaction</div>
             <form id="transaction-form">
@@ -684,17 +459,14 @@
                     <label for="description">Description</label>
                     <input type="text" id="description" placeholder="Paycheck, Tools, Insurance" autocomplete="off" required>
                 </div>
-                
                 <div class="form-group">
                     <label for="amount">Amount ($)</label>
                     <input type="number" id="amount" step="0.01" placeholder="0.00" required>
                 </div>
-
                 <div class="form-group">
                     <label for="date">Starting Date</label>
                     <input type="date" id="date" required>
                 </div>
-
                 <div class="form-group">
                     <label for="type">Type</label>
                     <select id="type">
@@ -702,7 +474,6 @@
                         <option value="income">Income</option>
                     </select>
                 </div>
-                
                 <div class="form-group">
                     <label for="frequency">Schedule / Frequency</label>
                     <select id="frequency">
@@ -713,7 +484,6 @@
                         <option value="monthly">Monthly</option>
                     </select>
                 </div>
-
                 <div class="form-group form-submit-wrapper">
                     <button type="submit" class="submit-action-btn">Log Transaction</button>
                 </div>
@@ -744,7 +514,6 @@
                     <ul id="transaction-list" class="scroller-list"></ul>
                 </div>
             </div>
-
             <div class="glass-panel" id="upcoming-panel" style="height: 400px;">
                 <div class="section-title">Upcoming Schedule</div>
                 <div class="log-scroll-wrapper">
@@ -752,110 +521,450 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 
 <script>
-    let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
-    let deletedExceptions = JSON.parse(localStorage.getItem('deletedExceptions')) || [];
+    // ── State ────────────────────────────────────────────────────────────────
+    let transactions      = JSON.parse(localStorage.getItem('transactions'))       || [];
+    let deletedExceptions = JSON.parse(localStorage.getItem('deletedExceptions'))  || [];
 
-    const form = document.getElementById('transaction-form');
-    const descriptionInput = document.getElementById('description');
-    const amountInput = document.getElementById('amount');
-    const dateInput = document.getElementById('date');
-    const typeInput = document.getElementById('type');
-    const frequencyInput = document.getElementById('frequency');
-    
-    const activeLedgerList = document.getElementById('transaction-list');
-    const upcomingScheduleList = document.getElementById('calendar-list');
+    // Shared rollover balance — calculated once per sync cycle, used by both
+    // updateDashboard() and renderLists()
+    let rolloverBalance = 0;
+
+    // ── DOM refs ─────────────────────────────────────────────────────────────
+    const form              = document.getElementById('transaction-form');
+    const descriptionInput  = document.getElementById('description');
+    const amountInput       = document.getElementById('amount');
+    const dateInput         = document.getElementById('date');
+    const typeInput         = document.getElementById('type');
+    const frequencyInput    = document.getElementById('frequency');
+
+    const activeLedgerList      = document.getElementById('transaction-list');
+    const upcomingScheduleList  = document.getElementById('calendar-list');
     const calendarDaysContainer = document.getElementById('calendar-days-container');
-    const calendarTitleDisplay = document.getElementById('calendar-title');
-    
-    const incomeDisplay = document.getElementById('total-income');
-    const expenseDisplay = document.getElementById('total-expenses');
-    const balanceDisplay = document.getElementById('net-balance');
+    const calendarTitleDisplay  = document.getElementById('calendar-title');
 
-    const scheduledIncomeDisplay = document.getElementById('scheduled-income-val');
+    const incomeDisplay           = document.getElementById('total-income');
+    const expenseDisplay          = document.getElementById('total-expenses');
+    const balanceDisplay          = document.getElementById('net-balance');
+    const scheduledIncomeDisplay  = document.getElementById('scheduled-income-val');
     const upcomingExpensesDisplay = document.getElementById('upcoming-expenses-val');
     const projectedBalanceDisplay = document.getElementById('projected-balance-val');
+    const rolloverIndicator       = document.getElementById('rollover-indicator');
 
-    const incomeContextLabel = document.getElementById('income-context-label');
+    const incomeContextLabel  = document.getElementById('income-context-label');
     const expenseContextLabel = document.getElementById('expense-context-label');
     const balanceContextLabel = document.getElementById('balance-context-label');
 
-    const drawer = document.getElementById('settings-drawer');
+    const drawer          = document.getElementById('settings-drawer');
     const openSettingsBtn = document.getElementById('open-settings-btn');
-    const closeSettingsBtn = document.getElementById('close-settings-btn');
-
-    const wallInput = document.getElementById('wallpaper-input');
-    const selectWallBtn = document.getElementById('select-wall-btn');
-    const resetWallBtn = document.getElementById('reset-wall-btn');
-    const exportBtn = document.getElementById('export-month-btn');
-    const resetBtn = document.getElementById('master-reset-btn');
-
-    const prevMonthBtn = document.getElementById('prev-month-btn');
-    const nextMonthBtn = document.getElementById('next-month-btn');
+    const closeSettingsBtn= document.getElementById('close-settings-btn');
+    const wallInput       = document.getElementById('wallpaper-input');
+    const selectWallBtn   = document.getElementById('select-wall-btn');
+    const resetWallBtn    = document.getElementById('reset-wall-btn');
+    const exportBtn       = document.getElementById('export-month-btn');
+    const resetBtn        = document.getElementById('master-reset-btn');
+    const prevMonthBtn    = document.getElementById('prev-month-btn');
+    const nextMonthBtn    = document.getElementById('next-month-btn');
+    const importBtn       = document.getElementById('import-btn');
+    const importFileInput = document.getElementById('import-file-input');
+    const pdfBtn          = document.getElementById('pdf-btn');
 
     let calendarFocusDate = new Date();
-
     const todayStr = new Date().toISOString().split('T')[0];
     dateInput.value = todayStr;
 
-    const importBtn = document.getElementById('import-btn');
-    const importFileInput = document.getElementById('import-file-input');
-    const pdfBtn = document.getElementById('pdf-btn');
+    // ── Helpers ───────────────────────────────────────────────────────────────
 
-    importBtn.addEventListener('click', () => importFileInput.click());
-    importFileInput.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            try {
-                const data = JSON.parse(event.target.result);
-                if (confirm("Import data? This will merge/overwrite your current tracker.")) {
-                    transactions = data.ledgerRecords;
-                    deletedExceptions = data.historicalExemptions || [];
-                    updateLocalStorage();
-                    init();
-                    alert("Import complete!");
+    /** Returns true if transaction t fires on targetDateStr, respecting deletedExceptions. */
+    function transactionMatchesDate(t, targetDateStr) {
+        if (deletedExceptions.some(ex => ex.baseId === t.id && ex.date === targetDateStr)) return false;
+        if (t.date === targetDateStr) return true;
+        if (!t.frequency || t.frequency === 'one-time') return false;
+        const start  = new Date(t.date + 'T00:00:00');
+        const target = new Date(targetDateStr + 'T00:00:00');
+        if (target <= start) return false;
+        const diffDays = Math.round((target - start) / 86400000);
+        switch (t.frequency) {
+            case 'weekly':       return diffDays % 7  === 0;
+            case 'bi-weekly':    return diffDays % 14 === 0;
+            case 'semi-monthly': return target.getDate() === start.getDate() ||
+                                        target.getDate() === start.getDate() + 15 ||
+                                        (start.getDate() > 15 && target.getDate() === start.getDate() - 15);
+            case 'monthly':      return target.getDate() === start.getDate() &&
+                                        (target.getFullYear() !== start.getFullYear() ||
+                                         target.getMonth()    !== start.getMonth());
+            default: return false;
+        }
+    }
+
+    /** Advance scanDate by one frequency step. Mutates the Date in place. */
+    function advanceByFrequency(date, frequency) {
+        if (frequency === 'weekly')       date.setDate(date.getDate() + 7);
+        else if (frequency === 'bi-weekly')  date.setDate(date.getDate() + 14);
+        else if (frequency === 'semi-monthly') date.setDate(date.getDate() + 15);
+        else if (frequency === 'monthly') date.setMonth(date.getMonth() + 1);
+    }
+
+    // ── Rollover calculation ──────────────────────────────────────────────────
+
+    /**
+     * Calculates the cumulative net balance of ALL transactions whose fire-dates
+     * fall strictly BEFORE the first day of the currently-viewed month.
+     * Result is stored in the module-level `rolloverBalance`.
+     */
+    function computeRollover() {
+        const focusYear  = calendarFocusDate.getFullYear();
+        const focusMonth = calendarFocusDate.getMonth();
+        const startOfFocusMonth = new Date(focusYear, focusMonth, 1, 0, 0, 0);
+
+        rolloverBalance = 0;
+
+        transactions.forEach(t => {
+            const start = new Date(t.date + 'T00:00:00');
+
+            if (!t.frequency || t.frequency === 'one-time') {
+                // One-time: only counts if it fired before this month
+                if (start < startOfFocusMonth) {
+                    const ds = start.toISOString().split('T')[0];
+                    if (!deletedExceptions.some(ex => ex.baseId === t.id && ex.date === ds)) {
+                        rolloverBalance += t.type === 'income' ? t.amount : -t.amount;
+                    }
                 }
-            } catch (err) { alert("Invalid file format."); }
-        };
-        reader.readAsText(file);
+                return;
+            }
+
+            // Recurring: walk every occurrence that falls before this month
+            let scan = new Date(start);
+            while (scan < startOfFocusMonth) {
+                const ds = scan.toISOString().split('T')[0];
+                if (!deletedExceptions.some(ex => ex.baseId === t.id && ex.date === ds)) {
+                    rolloverBalance += t.type === 'income' ? t.amount : -t.amount;
+                }
+                advanceByFrequency(scan, t.frequency);
+            }
+        });
+    }
+
+    // ── Calendar grid ─────────────────────────────────────────────────────────
+    function renderCalendarGrid() {
+        calendarDaysContainer.innerHTML = '';
+        const year  = calendarFocusDate.getFullYear();
+        const month = calendarFocusDate.getMonth();
+        const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+        calendarTitleDisplay.innerText = `${monthNames[month]} ${year}`;
+
+        const firstDayIndex   = new Date(year, month, 1).getDay();
+        const totalDaysInMonth= new Date(year, month + 1, 0).getDate();
+        const systemToday     = new Date();
+        const isCurrentMonthView = systemToday.getFullYear() === year && systemToday.getMonth() === month;
+
+        for (let i = 0; i < firstDayIndex; i++) {
+            const empty = document.createElement('div');
+            empty.className = 'calendar-day-cell empty-cell';
+            calendarDaysContainer.appendChild(empty);
+        }
+
+        for (let day = 1; day <= totalDaysInMonth; day++) {
+            const cell = document.createElement('div');
+            cell.className = 'calendar-day-cell';
+            if (isCurrentMonthView && systemToday.getDate() === day) cell.classList.add('current-today-cell');
+            cell.innerHTML = `<div class="calendar-day-number">${day}</div><div class="calendar-cell-events-container"></div>`;
+            const eventsContainer = cell.querySelector('.calendar-cell-events-container');
+            const targetDateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+
+            transactions.forEach(t => {
+                if (transactionMatchesDate(t, targetDateStr)) {
+                    const entry = document.createElement('div');
+                    entry.className = `calendar-inline-entry entry-${t.type}`;
+                    const amt = t.amount.toLocaleString('en-US', { maximumFractionDigits: 0 });
+                    const recurIcon = (t.frequency && t.frequency !== 'one-time') ? ' 🔁' : '';
+                    entry.innerText = `${t.description}${recurIcon} ($${amt})`;
+                    entry.title = `${t.description} (${t.frequency}): ${t.type === 'income' ? '+' : '-'}$${t.amount}`;
+                    eventsContainer.appendChild(entry);
+                }
+            });
+
+            calendarDaysContainer.appendChild(cell);
+        }
+    }
+
+    // ── Ledger & upcoming lists ───────────────────────────────────────────────
+    function renderLists() {
+        activeLedgerList.innerHTML    = '';
+        upcomingScheduleList.innerHTML= '';
+
+        const systemToday = new Date();
+        systemToday.setHours(0, 0, 0, 0);
+
+        const focusYear  = calendarFocusDate.getFullYear();
+        const focusMonth = calendarFocusDate.getMonth();
+        const startOfFocusMonth = new Date(focusYear, focusMonth, 1, 0, 0, 0);
+        const endOfFocusMonth   = new Date(focusYear, focusMonth + 1, 0, 23, 59, 59);
+
+        // ── Build the "cleared" (past) ledger items for the focused month ──
+        const historyExecutionItems = [];
+
+        transactions.forEach(t => {
+            const start = new Date(t.date + 'T00:00:00');
+
+            if (!t.frequency || t.frequency === 'one-time') {
+                if (start >= startOfFocusMonth && start <= endOfFocusMonth && start <= systemToday) {
+                    const ds = start.toISOString().split('T')[0];
+                    if (!deletedExceptions.some(ex => ex.baseId === t.id && ex.date === ds)) {
+                        historyExecutionItems.push({ ...t, computedDate: new Date(start) });
+                    }
+                }
+                return;
+            }
+
+            let scan = new Date(start);
+            while (scan <= endOfFocusMonth) {
+                if (scan >= startOfFocusMonth && scan <= systemToday) {
+                    const ds = scan.toISOString().split('T')[0];
+                    if (!deletedExceptions.some(ex => ex.baseId === t.id && ex.date === ds)) {
+                        historyExecutionItems.push({ ...t, computedDate: new Date(scan) });
+                    }
+                }
+                advanceByFrequency(scan, t.frequency);
+            }
+        });
+
+        historyExecutionItems.sort((a, b) => a.computedDate - b.computedDate);
+
+        // Running total starts from rollover (already computed)
+        let calculatedRunningTotal = rolloverBalance;
+
+        historyExecutionItems.forEach(instance => {
+            if (instance.type === 'income') calculatedRunningTotal += instance.amount;
+            else calculatedRunningTotal -= instance.amount;
+
+            const fmt    = { minimumFractionDigits: 2, maximumFractionDigits: 2 };
+            const fmtAmt = instance.amount.toLocaleString('en-US', fmt);
+            const fmtRun = calculatedRunningTotal.toLocaleString('en-US', fmt);
+            const prettyDate = instance.computedDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            const dateISOStr = instance.computedDate.toISOString().split('T')[0];
+            const freqTag = (instance.frequency && instance.frequency !== 'one-time')
+                ? `<span class="recurring-badge">🔁 ${instance.frequency}</span>` : '';
+
+            const li = document.createElement('li');
+            li.className = 'transaction-item';
+            li.innerHTML = `
+                <div class="transaction-info">
+                    <span class="transaction-description">${instance.description} ${freqTag}</span>
+                    <span class="transaction-date">${prettyDate}</span>
+                    <span class="running-total-box">Balance: <span class="running-total-value">$${fmtRun}</span></span>
+                </div>
+                <div class="transaction-side-metrics">
+                    <span class="transaction-amount ${instance.type === 'income' ? 'income' : 'expense'}">${instance.type === 'income' ? '+' : '-'}$${fmtAmt}</span>
+                    <button class="delete-btn" onclick="executeSplitDeletionTrigger(${instance.id}, '${dateISOStr}', '${instance.description}')">&times;</button>
+                </div>`;
+            // Most-recent first
+            activeLedgerList.insertBefore(li, activeLedgerList.firstChild);
+        });
+
+        // ── Build the upcoming (future) list ──────────────────────────────────
+        const prospectiveTimelineItems = [];
+
+        transactions.forEach(t => {
+            const start = new Date(t.date + 'T00:00:00');
+
+            if (!t.frequency || t.frequency === 'one-time') {
+                if (start > systemToday && start >= startOfFocusMonth && start <= endOfFocusMonth) {
+                    prospectiveTimelineItems.push({ ...t, computedDate: new Date(start) });
+                }
+                return;
+            }
+
+            let scan = new Date(start);
+            while (scan <= endOfFocusMonth) {
+                if (scan > systemToday && scan >= startOfFocusMonth) {
+                    const ds = scan.toISOString().split('T')[0];
+                    if (!deletedExceptions.some(ex => ex.baseId === t.id && ex.date === ds)) {
+                        prospectiveTimelineItems.push({ ...t, computedDate: new Date(scan) });
+                    }
+                }
+                advanceByFrequency(scan, t.frequency);
+            }
+        });
+
+        prospectiveTimelineItems.sort((a, b) => a.computedDate - b.computedDate);
+
+        prospectiveTimelineItems.forEach(item => {
+            const fmt    = { minimumFractionDigits: 2, maximumFractionDigits: 2 };
+            const fmtAmt = item.amount.toLocaleString('en-US', fmt);
+            const prettyDate = item.computedDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            const dateISOStr = item.computedDate.toISOString().split('T')[0];
+            const freqTag = (item.frequency && item.frequency !== 'one-time')
+                ? `<span class="recurring-badge">🔁 ${item.frequency}</span>` : '';
+
+            const li = document.createElement('li');
+            li.className = `transaction-item upcoming-${item.type}`;
+            li.innerHTML = `
+                <div class="transaction-info">
+                    <span class="transaction-description">${item.description} ${freqTag}</span>
+                    <span class="transaction-date">📅 ${prettyDate}</span>
+                </div>
+                <div class="transaction-side-metrics">
+                    <span class="transaction-amount ${item.type === 'income' ? 'income' : 'expense'}">${item.type === 'income' ? '+' : '-'}$${fmtAmt}</span>
+                    <button class="delete-btn" onclick="executeSplitDeletionTrigger(${item.id}, '${dateISOStr}', '${item.description}')">&times;</button>
+                </div>`;
+            upcomingScheduleList.appendChild(li);
+        });
+    }
+
+    // ── Dashboard totals ──────────────────────────────────────────────────────
+    function updateDashboard() {
+        const systemToday = new Date();
+        systemToday.setHours(0, 0, 0, 0);
+
+        const focusYear  = calendarFocusDate.getFullYear();
+        const focusMonth = calendarFocusDate.getMonth();
+        const startOfFocusMonth = new Date(focusYear, focusMonth, 1, 0, 0, 0);
+        const endOfFocusMonth   = new Date(focusYear, focusMonth + 1, 0, 23, 59, 59);
+
+        const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+        const contextString = `${monthNames[focusMonth]} ${focusYear} View`;
+        incomeContextLabel.innerText  = contextString;
+        expenseContextLabel.innerText = contextString;
+        balanceContextLabel.innerText = contextString;
+
+        let focusedIncomeCleared   = 0;
+        let focusedExpenseCleared  = 0;
+        let focusedIncomeRemaining = 0;
+        let focusedExpenseRemaining= 0;
+
+        transactions.forEach(t => {
+            const start = new Date(t.date + 'T00:00:00');
+
+            if (!t.frequency || t.frequency === 'one-time') {
+                if (start >= startOfFocusMonth && start <= endOfFocusMonth) {
+                    const ds = start.toISOString().split('T')[0];
+                    if (!deletedExceptions.some(ex => ex.baseId === t.id && ex.date === ds)) {
+                        if (start <= systemToday) {
+                            if (t.type === 'income') focusedIncomeCleared   += t.amount;
+                            else                     focusedExpenseCleared  += t.amount;
+                        } else {
+                            if (t.type === 'income') focusedIncomeRemaining += t.amount;
+                            else                     focusedExpenseRemaining+= t.amount;
+                        }
+                    }
+                }
+                return;
+            }
+
+            let scan = new Date(start);
+            while (scan <= endOfFocusMonth) {
+                if (scan >= startOfFocusMonth) {
+                    const ds = scan.toISOString().split('T')[0];
+                    if (!deletedExceptions.some(ex => ex.baseId === t.id && ex.date === ds)) {
+                        if (scan <= systemToday) {
+                            if (t.type === 'income') focusedIncomeCleared   += t.amount;
+                            else                     focusedExpenseCleared  += t.amount;
+                        } else {
+                            if (t.type === 'income') focusedIncomeRemaining += t.amount;
+                            else                     focusedExpenseRemaining+= t.amount;
+                        }
+                    }
+                }
+                advanceByFrequency(scan, t.frequency);
+            }
+        });
+
+        // Net balance for transactions cleared so far this month, plus rollover
+        const clearedBalance        = rolloverBalance + (focusedIncomeCleared - focusedExpenseCleared);
+        const totalForecastedBalance= clearedBalance + focusedIncomeRemaining - focusedExpenseRemaining;
+
+        // Show rollover line only when it's non-zero
+        if (rolloverIndicator) {
+            rolloverIndicator.innerText = rolloverBalance !== 0
+                ? `Includes $${rolloverBalance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Rollover`
+                : '';
+        }
+
+        const fmt = { minimumFractionDigits: 2, maximumFractionDigits: 2 };
+        incomeDisplay.innerText           = `$${focusedIncomeCleared.toLocaleString('en-US', fmt)}`;
+        expenseDisplay.innerText          = `$${focusedExpenseCleared.toLocaleString('en-US', fmt)}`;
+        balanceDisplay.innerText          = `$${clearedBalance.toLocaleString('en-US', fmt)}`;
+        scheduledIncomeDisplay.innerText  = `$${focusedIncomeRemaining.toLocaleString('en-US', fmt)}`;
+        upcomingExpensesDisplay.innerText = `$${focusedExpenseRemaining.toLocaleString('en-US', fmt)}`;
+        projectedBalanceDisplay.innerText = `$${totalForecastedBalance.toLocaleString('en-US', fmt)}`;
+
+        balanceDisplay.className = clearedBalance < 0 ? 'value expense'
+                                 : clearedBalance > 0 ? 'value positive-green'
+                                 : 'value neutral';
+        projectedBalanceDisplay.className = totalForecastedBalance < 0 ? 'proj-val coral-tint'
+                                          : totalForecastedBalance > 0 ? 'proj-val green-tint'
+                                          : 'proj-val';
+    }
+
+    // ── Main sync ─────────────────────────────────────────────────────────────
+    function syncDashboardAndVisuals() {
+        computeRollover();      // Must run first — sets shared rolloverBalance
+        renderCalendarGrid();
+        renderLists();          // Uses rolloverBalance for running totals
+        updateDashboard();      // Uses rolloverBalance for net balance card
+    }
+
+    // ── Form submit ───────────────────────────────────────────────────────────
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (!descriptionInput.value.trim() || !amountInput.value.trim() || !dateInput.value) return;
+        transactions.push({
+            id: Date.now(),
+            description: descriptionInput.value.trim(),
+            amount: parseFloat(amountInput.value),
+            date: dateInput.value,
+            type: typeInput.value,
+            frequency: frequencyInput.value
+        });
+        updateLocalStorage();
+        init();
+        descriptionInput.value = '';
+        amountInput.value = '';
+        dateInput.value = todayStr;
+        frequencyInput.value = 'one-time';
     });
 
-    pdfBtn.addEventListener('click', () => {
-        const elementsToHide = [
-            document.getElementById('input-panel'),
-            document.getElementById('calendar-panel'),
-            document.getElementById('upcoming-panel'),
-            document.querySelector('.controls-container'),
-            document.querySelector('.settings-drawer')
-        ];
-        elementsToHide.forEach(el => { if (el) el.style.display = 'none'; });
-        window.print();
-        elementsToHide.forEach(el => { if (el) el.style.display = ''; });
-    });
+    // ── Delete ────────────────────────────────────────────────────────────────
+    function executeSplitDeletionTrigger(baseId, instanceDateStr, labelName) {
+        const sourceMatch = transactions.find(t => t.id === baseId);
+        if (!sourceMatch || !sourceMatch.frequency || sourceMatch.frequency === 'one-time') {
+            transactions = transactions.filter(t => t.id !== baseId);
+            updateLocalStorage(); init(); return;
+        }
+        if (confirm(`Manage Recurring Transaction: "${labelName}"\n\nOK: Delete this instance.\nCancel: Delete the entire series.`)) {
+            deletedExceptions.push({ baseId, date: instanceDateStr });
+            localStorage.setItem('deletedExceptions', JSON.stringify(deletedExceptions));
+        } else {
+            transactions = transactions.filter(t => t.id !== baseId);
+            deletedExceptions = deletedExceptions.filter(ex => ex.baseId !== baseId);
+            localStorage.setItem('deletedExceptions', JSON.stringify(deletedExceptions));
+            updateLocalStorage();
+        }
+        updateLocalStorage(); init();
+    }
 
-    if (openSettingsBtn) openSettingsBtn.addEventListener('click', () => drawer.classList.add('open'));
+    // ── Settings drawer ───────────────────────────────────────────────────────
+    openSettingsBtn.addEventListener('click', () => drawer.classList.add('open'));
     closeSettingsBtn.addEventListener('click', () => drawer.classList.remove('open'));
     document.addEventListener('click', (e) => {
         if (!drawer.contains(e.target) && e.target !== openSettingsBtn) drawer.classList.remove('open');
     });
 
+    // ── Wallpaper ─────────────────────────────────────────────────────────────
     selectWallBtn.addEventListener('click', () => wallInput.click());
-    wallInput.addEventListener('change', function() {
+    wallInput.addEventListener('change', function () {
         const file = this.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.addEventListener('load', function() {
-                applyWallpaper(this.result);
-                localStorage.setItem('customWallpaper', this.result);
-            });
-            reader.readAsDataURL(file);
-        }
+        if (!file) return;
+        const reader = new FileReader();
+        reader.addEventListener('load', function () {
+            applyWallpaper(this.result);
+            localStorage.setItem('customWallpaper', this.result);
+        });
+        reader.readAsDataURL(file);
     });
     resetWallBtn.addEventListener('click', () => {
         localStorage.removeItem('customWallpaper');
@@ -864,316 +973,118 @@
         wallInput.value = '';
     });
     function applyWallpaper(dataUrl) {
-        document.body.style.backgroundImage = `linear-gradient(rgba(5, 7, 12, 0.8), rgba(11, 15, 25, 0.8)), url('${dataUrl}')`;
+        document.body.style.backgroundImage = `linear-gradient(rgba(5,7,12,0.8), rgba(11,15,25,0.8)), url('${dataUrl}')`;
         resetWallBtn.style.display = 'block';
     }
     function checkSavedWallpaper() {
-        const savedWall = localStorage.getItem('customWallpaper');
-        if (savedWall) applyWallpaper(savedWall);
+        const saved = localStorage.getItem('customWallpaper');
+        if (saved) applyWallpaper(saved);
     }
 
+    // ── Calendar nav ──────────────────────────────────────────────────────────
     prevMonthBtn.addEventListener('click', () => { calendarFocusDate.setMonth(calendarFocusDate.getMonth() - 1); syncDashboardAndVisuals(); });
     nextMonthBtn.addEventListener('click', () => { calendarFocusDate.setMonth(calendarFocusDate.getMonth() + 1); syncDashboardAndVisuals(); });
 
-    function initStationaryFullWidthResizerEngine() {
-        const panelsToResize = document.querySelectorAll('.glass-panel:not(.card)');
-        panelsToResize.forEach(panel => {
-            if (panel.querySelector('.panel-height-handle')) return;
-            const dragHandle = document.createElement('div');
-            dragHandle.className = 'panel-height-handle';
-            panel.appendChild(dragHandle);
-            dragHandle.addEventListener('pointerdown', function(e) {
-                e.preventDefault();
-                dragHandle.setPointerCapture(e.pointerId);
-                dragHandle.classList.add('active-dragging-handle');
-                const baselinePointerY = e.clientY;
-                const startingPanelHeight = panel.offsetHeight;
-                const pointerMoveSequence = function(moveEvent) {
-                    const currentYDelta = moveEvent.clientY - baselinePointerY;
-                    const calculatedHeightTarget = startingPanelHeight + currentYDelta;
-                    if (calculatedHeightTarget >= 180 && calculatedHeightTarget <= 900) {
-                        panel.style.height = `${calculatedHeightTarget}px`;
-                    }
-                };
-                const pointerUpSequence = function(upEvent) {
-                    dragHandle.releasePointerCapture(upEvent.pointerId);
-                    dragHandle.classList.remove('active-dragging-handle');
-                    const panelIdKey = panel.getAttribute('data-panel-id') || panel.getAttribute('id');
-                    if (panelIdKey) {
-                        localStorage.setItem(`heightProfile_${panelIdKey}`, `${panel.style.height}`);
-                    }
-                    window.removeEventListener('pointermove', pointerMoveSequence);
-                    window.removeEventListener('pointerup', pointerUpSequence);
-                };
-                window.addEventListener('pointermove', pointerMoveSequence);
-                window.addEventListener('pointerup', pointerUpSequence);
-            });
-        });
-    }
-
-    function restoreSavedPanelHeights() {
-        document.querySelectorAll('.glass-panel').forEach(panel => {
-            const panelIdKey = panel.getAttribute('data-panel-id') || panel.getAttribute('id');
-            if (panelIdKey) {
-                const savedHeight = localStorage.getItem(`heightProfile_${panelIdKey}`);
-                if (savedHeight) panel.style.height = savedHeight;
-            }
-        });
-    }
-
-    function transactionMatchesDate(t, targetDateStr) {
-        if (deletedExceptions.some(ex => ex.baseId === t.id && ex.date === targetDateStr)) return false;
-        if (t.date === targetDateStr) return true;
-        if (!t.frequency || t.frequency === 'one-time') return false;
-        const start = new Date(t.date + 'T00:00:00');
-        const target = new Date(targetDateStr + 'T00:00:00');
-        if (target < start) return false;
-        const diffTime = Math.abs(target - start);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        switch(t.frequency) {
-            case 'weekly': return diffDays % 7 === 0;
-            case 'bi-weekly': return diffDays % 14 === 0;
-            case 'semi-monthly': return target.getDate() === start.getDate() || target.getDate() === (start.getDate() + 15) || (start.getDate() > 15 && target.getDate() === (start.getDate() - 15));
-            case 'monthly': return target.getDate() === start.getDate() && target.getMonth() !== start.getMonth();
-            default: return false;
-        }
-    }
-
-    function renderCalendarGrid() {
-        calendarDaysContainer.innerHTML = '';
-        const year = calendarFocusDate.getFullYear();
-        const month = calendarFocusDate.getMonth();
-        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        calendarTitleDisplay.innerText = `${monthNames[month]} ${year}`;
-        const firstDayIndex = new Date(year, month, 1).getDay();
-        const totalDaysInMonth = new Date(year, month + 1, 0).getDate();
-        const systemToday = new Date();
-        const isCurrentMonthView = systemToday.getFullYear() === year && systemToday.getMonth() === month;
-        for (let i = 0; i < firstDayIndex; i++) {
-            const emptyCell = document.createElement('div');
-            emptyCell.className = 'calendar-day-cell empty-cell';
-            calendarDaysContainer.appendChild(emptyCell);
-        }
-        for (let day = 1; day <= totalDaysInMonth; day++) {
-            const cell = document.createElement('div');
-            cell.className = 'calendar-day-cell';
-            if (isCurrentMonthView && systemToday.getDate() === day) cell.classList.add('current-today-cell');
-            cell.innerHTML = `<div class="calendar-day-number">${day}</div><div class="calendar-cell-events-container"></div>`;
-            const eventsContainer = cell.querySelector('.calendar-cell-events-container');
-            const targetDateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-            transactions.forEach(t => {
-                if (transactionMatchesDate(t, targetDateStr)) {
-                    const entry = document.createElement('div');
-                    entry.className = `calendar-inline-entry entry-${t.type}`;
-                    const formattedAmt = t.amount.toLocaleString('en-US', { maximumFractionDigits: 0 });
-                    let labelFreq = (t.frequency && t.frequency !== 'one-time') ? ' 🔁' : '';
-                    entry.innerText = `${t.description}${labelFreq} ($${formattedAmt})`;
-                    entry.title = `${t.description} (${t.frequency}): ${t.type === 'income' ? '+' : '-'}$${t.amount}`;
-                    eventsContainer.appendChild(entry);
+    // ── Import / Export / PDF / Reset ─────────────────────────────────────────
+    importBtn.addEventListener('click', () => importFileInput.click());
+    importFileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+            try {
+                const data = JSON.parse(ev.target.result);
+                if (confirm("Import data? This will merge/overwrite your current tracker.")) {
+                    transactions        = data.ledgerRecords;
+                    deletedExceptions   = data.historicalExemptions || [];
+                    updateLocalStorage();
+                    init();
+                    alert("Import complete!");
                 }
-            });
-            calendarDaysContainer.appendChild(cell);
-        }
-    }
-
-    function renderLists() {
-        activeLedgerList.innerHTML = '';
-        upcomingScheduleList.innerHTML = '';
-        const baselineDate = new Date();
-        baselineDate.setHours(0,0,0,0);
-        const focusYear = calendarFocusDate.getFullYear();
-        const focusMonth = calendarFocusDate.getMonth();
-        const startOfFocusMonth = new Date(focusYear, focusMonth, 1, 0, 0, 0);
-        const endOfFocusMonth = new Date(focusYear, focusMonth + 1, 0, 23, 59, 59);
-        let historyExecutionItems = [];
-        transactions.forEach(t => {
-            let scanLoopDate = new Date(t.date + 'T00:00:00');
-            if (!t.frequency || t.frequency === 'one-time') {
-                if (scanLoopDate <= baselineDate) historyExecutionItems.push({ ...t, computedDate: new Date(scanLoopDate) });
-                return;
-            }
-            while (scanLoopDate <= baselineDate) {
-                const targetDateStr = scanLoopDate.toISOString().split('T')[0];
-                if (!deletedExceptions.some(ex => ex.baseId === t.id && ex.date === targetDateStr)) historyExecutionItems.push({ ...t, computedDate: new Date(scanLoopDate) });
-                if (t.frequency === 'weekly') scanLoopDate.setDate(scanLoopDate.getDate() + 7);
-                else if (t.frequency === 'bi-weekly') scanLoopDate.setDate(scanLoopDate.getDate() + 14);
-                else if (t.frequency === 'semi-monthly') scanLoopDate.setDate(scanLoopDate.getDate() + 15);
-                else if (t.frequency === 'monthly') scanLoopDate.setMonth(scanLoopDate.getMonth() + 1);
-            }
-        });
-        historyExecutionItems.sort((a, b) => a.computedDate - b.computedDate);
-        let calculatedRunningTotal = 0;
-        historyExecutionItems.forEach(instance => {
-            if (instance.type === 'income') calculatedRunningTotal += instance.amount;
-            else calculatedRunningTotal -= instance.amount;
-            const formattedRunningTotal = calculatedRunningTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            const formattedAmount = instance.amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            const prettyDate = instance.computedDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-            const dateISOStr = instance.computedDate.toISOString().split('T')[0];
-            let frequencyTag = (instance.frequency && instance.frequency !== 'one-time') ? `<span class="recurring-badge">🔁 ${instance.frequency}</span>` : '';
-            const li = document.createElement('li');
-            li.className = 'transaction-item';
-            li.innerHTML = `
-                <div class="transaction-info">
-                    <span class="transaction-description">${instance.description} ${frequencyTag}</span>
-                    <span class="transaction-date">${prettyDate}</span>
-                    <span class="running-total-box">Balance: <span class="running-total-value">$${formattedRunningTotal}</span></span>
-                </div>
-                <div class="transaction-side-metrics">
-                    <span class="transaction-amount ${instance.type === 'income' ? 'income' : 'expense'}">${instance.type === 'income' ? '+' : '-'}$${formattedAmount}</span>
-                    <button class="delete-btn" onclick="executeSplitDeletionTrigger(${instance.id}, '${dateISOStr}', '${instance.description}')">&times;</button>
-                </div>
-            `;
-            activeLedgerList.insertBefore(li, activeLedgerList.firstChild);
-        });
-        let prospectiveTimelineItems = [];
-        transactions.forEach(t => {
-            let scanLoopDate = new Date(t.date + 'T00:00:00');
-            if (!t.frequency || t.frequency === 'one-time') {
-                if (scanLoopDate > baselineDate && scanLoopDate >= startOfFocusMonth && scanLoopDate <= endOfFocusMonth) prospectiveTimelineItems.push({ ...t, computedDate: new Date(scanLoopDate) });
-                return;
-            }
-            while (scanLoopDate <= endOfFocusMonth) {
-                if (scanLoopDate > baselineDate && scanLoopDate >= startOfFocusMonth) {
-                    const targetDateStr = scanLoopDate.toISOString().split('T')[0];
-                    if (!deletedExceptions.some(ex => ex.baseId === t.id && ex.date === targetDateStr)) prospectiveTimelineItems.push({ ...t, computedDate: new Date(scanLoopDate) });
-                }
-                if (t.frequency === 'weekly') scanLoopDate.setDate(scanLoopDate.getDate() + 7);
-                else if (t.frequency === 'bi-weekly') scanLoopDate.setDate(scanLoopDate.getDate() + 14);
-                else if (t.frequency === 'semi-monthly') scanLoopDate.setDate(scanLoopDate.getDate() + 15);
-                else if (t.frequency === 'monthly') scanLoopDate.setMonth(scanLoopDate.getMonth() + 1);
-            }
-        });
-        prospectiveTimelineItems.sort((a, b) => a.computedDate - b.computedDate);
-        prospectiveTimelineItems.forEach(item => {
-            const formattedAmount = item.amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            const prettyDate = item.computedDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-            const dateISOStr = item.computedDate.toISOString().split('T')[0];
-            let frequencyTag = `<span class="recurring-badge">🔁 ${item.frequency}</span>`;
-            const li = document.createElement('li');
-            li.className = `transaction-item upcoming-${item.type}`;
-            li.innerHTML = `
-                <div class="transaction-info">
-                    <span class="transaction-description">${item.description} ${frequencyTag}</span>
-                    <span class="transaction-date">📅 ${prettyDate}</span>
-                </div>
-                <div class="transaction-side-metrics">
-                    <span class="transaction-amount ${item.type === 'income' ? 'income' : 'expense'}">${item.type === 'income' ? '+' : '-'}$${formattedAmount}</span>
-                    <button class="delete-btn" onclick="executeSplitDeletionTrigger(${item.id}, '${dateISOStr}', '${item.description}')">&times;</button>
-                </div>
-            `;
-            upcomingScheduleList.appendChild(li);
-        });
-    }
-
-    function updateDashboard() {
-        const systemToday = new Date();
-        systemToday.setHours(0,0,0,0);
-        const focusYear = calendarFocusDate.getFullYear();
-        const focusMonth = calendarFocusDate.getMonth();
-        const startOfFocusMonth = new Date(focusYear, focusMonth, 1, 0, 0, 0);
-        const endOfFocusMonth = new Date(focusYear, focusMonth + 1, 0, 23, 59, 59);
-        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        const contextString = `${monthNames[focusMonth]} ${focusYear} View`;
-        incomeContextLabel.innerText = contextString;
-        expenseContextLabel.innerText = contextString;
-        balanceContextLabel.innerText = contextString;
-        let focusedIncomeCleared = 0; let focusedExpenseCleared = 0; let focusedIncomeRemaining = 0; let focusedExpenseRemaining = 0;
-        transactions.forEach(t => {
-            let scanLoopDate = new Date(t.date + 'T00:00:00');
-            if (!t.frequency || t.frequency === 'one-time') {
-                if (scanLoopDate >= startOfFocusMonth && scanLoopDate <= endOfFocusMonth) {
-                    if (scanLoopDate <= systemToday) { if (t.type === 'income') focusedIncomeCleared += t.amount; else focusedExpenseCleared += t.amount; }
-                    else { if (t.type === 'income') focusedIncomeRemaining += t.amount; else focusedExpenseRemaining += t.amount; }
-                }
-                return;
-            }
-            while (scanLoopDate <= endOfFocusMonth) {
-                if (scanLoopDate >= startOfFocusMonth) {
-                    const targetDateStr = scanLoopDate.toISOString().split('T')[0];
-                    if (!deletedExceptions.some(ex => ex.baseId === t.id && ex.date === targetDateStr)) {
-                        if (scanLoopDate <= systemToday) { if (t.type === 'income') focusedIncomeCleared += t.amount; else focusedExpenseCleared += t.amount; }
-                        else { if (t.type === 'income') focusedIncomeRemaining += t.amount; else focusedExpenseRemaining += t.amount; }
-                    }
-                }
-                if (t.frequency === 'weekly') scanLoopDate.setDate(scanLoopDate.getDate() + 7);
-                else if (t.frequency === 'bi-weekly') scanLoopDate.setDate(scanLoopDate.getDate() + 14);
-                else if (t.frequency === 'semi-monthly') scanLoopDate.setDate(scanLoopDate.getDate() + 15);
-                else if (t.frequency === 'monthly') scanLoopDate.setMonth(scanLoopDate.getMonth() + 1);
-            }
-        });
-        const clearedBalance = focusedIncomeCleared - focusedExpenseCleared;
-        const totalForecastedBalance = (clearedBalance + focusedIncomeRemaining) - focusedExpenseRemaining;
-        const formatConfig = { minimumFractionDigits: 2, maximumFractionDigits: 2 };
-        incomeDisplay.innerText = `$${focusedIncomeCleared.toLocaleString('en-US', formatConfig)}`;
-        expenseDisplay.innerText = `$${focusedExpenseCleared.toLocaleString('en-US', formatConfig)}`;
-        balanceDisplay.innerText = `$${clearedBalance.toLocaleString('en-US', formatConfig)}`;
-        scheduledIncomeDisplay.innerText = `$${focusedIncomeRemaining.toLocaleString('en-US', formatConfig)}`;
-        upcomingExpensesDisplay.innerText = `$${focusedExpenseRemaining.toLocaleString('en-US', formatConfig)}`;
-        projectedBalanceDisplay.innerText = `$${totalForecastedBalance.toLocaleString('en-US', formatConfig)}`;
-        balanceDisplay.className = clearedBalance < 0 ? 'value expense' : (clearedBalance > 0 ? 'value positive-green' : 'value neutral');
-        projectedBalanceDisplay.className = totalForecastedBalance < 0 ? 'proj-val coral-tint' : (totalForecastedBalance > 0 ? 'proj-val green-tint' : 'proj-val');
-    }
-
-    function syncDashboardAndVisuals() { renderCalendarGrid(); renderLists(); updateDashboard(); }
-
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        if (descriptionInput.value.trim() === '' || amountInput.value.trim() === '' || dateInput.value === '') return;
-        const transaction = { id: Date.now(), description: descriptionInput.value.trim(), amount: parseFloat(amountInput.value), date: dateInput.value, type: typeInput.value, frequency: frequencyInput.value };
-        transactions.push(transaction);
-        updateLocalStorage();
-        init();
-        descriptionInput.value = ''; amountInput.value = ''; dateInput.value = todayStr; frequencyInput.value = 'one-time';
+            } catch { alert("Invalid file format."); }
+        };
+        reader.readAsText(file);
     });
 
-    function executeSplitDeletionTrigger(baseId, instanceDateStr, labelName) {
-        const sourceMatch = transactions.find(t => t.id === baseId);
-        if (!sourceMatch || !sourceMatch.frequency || sourceMatch.frequency === 'one-time') {
-            transactions = transactions.filter(t => t.id !== baseId);
-            updateLocalStorage();
-            init();
-            return;
-        }
-        if (confirm(`Manage Recurring Transaction: "${labelName}"\n\nOK: Delete this instance.\nCancel: Delete the entire series.`)) {
-            deletedExceptions.push({ baseId: baseId, date: instanceDateStr });
-            localStorage.setItem('deletedExceptions', JSON.stringify(deletedExceptions));
-        } else {
-            transactions = transactions.filter(t => t.id !== baseId);
-            deletedExceptions = deletedExceptions.filter(ex => ex.baseId !== baseId);
-            localStorage.setItem('deletedExceptions', JSON.stringify(deletedExceptions));
-            updateLocalStorage();
-        }
-        updateLocalStorage();
-        init();
-    }
+    pdfBtn.addEventListener('click', () => {
+        const hide = ['input-panel','calendar-panel','upcoming-panel'].map(id => document.getElementById(id));
+        hide.push(document.querySelector('.controls-container'), document.querySelector('.settings-drawer'));
+        hide.forEach(el => { if (el) el.style.display = 'none'; });
+        window.print();
+        hide.forEach(el => { if (el) el.style.display = ''; });
+    });
 
     exportBtn.addEventListener('click', () => {
-        if (transactions.length === 0) return alert("Your ledger is empty.");
-        const exportPackage = { exportedAt: new Date().toISOString(), ledgerRecords: transactions, historicalExemptions: deletedExceptions };
-        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportPackage, null, 4));
-        const downloadAnchor = document.createElement('a');
-        downloadAnchor.setAttribute("href", dataStr);
-        downloadAnchor.setAttribute("download", `Budget-Report-${new Date().getFullYear()}.json`);
-        document.body.appendChild(downloadAnchor);
-        downloadAnchor.click();
-        downloadAnchor.remove();
+        if (transactions.length === 0) { alert("Your ledger is empty."); return; }
+        const pkg = { exportedAt: new Date().toISOString(), ledgerRecords: transactions, historicalExemptions: deletedExceptions };
+        const a = document.createElement('a');
+        a.href = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(pkg, null, 4));
+        a.download = `Budget-Report-${new Date().getFullYear()}.json`;
+        document.body.appendChild(a); a.click(); a.remove();
         alert("Export successful!");
     });
 
     resetBtn.addEventListener('click', () => {
         if (confirm("⚠️ Destructive Reset: Clear all local transactions, log states, and customization hooks?")) {
             localStorage.clear();
-            transactions = [];
-            deletedExceptions = [];
+            transactions = []; deletedExceptions = [];
             document.body.style.backgroundImage = '';
             init();
             drawer.className = 'settings-drawer';
         }
     });
 
+    // ── Panel resize ──────────────────────────────────────────────────────────
+    function initStationaryFullWidthResizerEngine() {
+        document.querySelectorAll('.glass-panel:not(.card)').forEach(panel => {
+            if (panel.querySelector('.panel-height-handle')) return;
+            const handle = document.createElement('div');
+            handle.className = 'panel-height-handle';
+            panel.appendChild(handle);
+            handle.addEventListener('pointerdown', (e) => {
+                e.preventDefault();
+                handle.setPointerCapture(e.pointerId);
+                handle.classList.add('active-dragging-handle');
+                const baseY = e.clientY;
+                const startH = panel.offsetHeight;
+                const onMove = (me) => {
+                    const h = startH + (me.clientY - baseY);
+                    if (h >= 180 && h <= 900) panel.style.height = `${h}px`;
+                };
+                const onUp = (ue) => {
+                    handle.releasePointerCapture(ue.pointerId);
+                    handle.classList.remove('active-dragging-handle');
+                    const key = panel.getAttribute('data-panel-id') || panel.getAttribute('id');
+                    if (key) localStorage.setItem(`heightProfile_${key}`, panel.style.height);
+                    window.removeEventListener('pointermove', onMove);
+                    window.removeEventListener('pointerup', onUp);
+                };
+                window.addEventListener('pointermove', onMove);
+                window.addEventListener('pointerup', onUp);
+            });
+        });
+    }
+
+    function restoreSavedPanelHeights() {
+        document.querySelectorAll('.glass-panel').forEach(panel => {
+            const key = panel.getAttribute('data-panel-id') || panel.getAttribute('id');
+            if (key) {
+                const h = localStorage.getItem(`heightProfile_${key}`);
+                if (h) panel.style.height = h;
+            }
+        });
+    }
+
+    // ── localStorage ─────────────────────────────────────────────────────────
     function updateLocalStorage() { localStorage.setItem('transactions', JSON.stringify(transactions)); }
-    function init() { restoreSavedPanelHeights(); checkSavedWallpaper(); syncDashboardAndVisuals(); initStationaryFullWidthResizerEngine(); }
+
+    // ── Bootstrap ─────────────────────────────────────────────────────────────
+    function init() {
+        restoreSavedPanelHeights();
+        checkSavedWallpaper();
+        syncDashboardAndVisuals();
+        initStationaryFullWidthResizerEngine();
+    }
     init();
 </script>
 </body>
