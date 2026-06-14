@@ -5,18 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pro Budget</title>
     <style>
-
-        #input-panel {
-    min-height: auto !important; /* Forces it to fit content only */
-    height: auto !important;     /* Prevents any fixed height styles */
-    padding-bottom: 24px !important;
-}
-
-/* Ensure the handle logic doesn't try to add padding for a handle */
-#input-panel .panel-height-handle {
-    display: none !important;
-}
-
         :root {
             --bg-base: #05070c;
             --text-main: #f1f5f9;
@@ -89,7 +77,7 @@
             margin: 0;
         }
         header {
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -189,7 +177,7 @@
             padding: 30px;
             display: flex;
             flex-direction: column;
-            gap: 24px;
+            gap: 16px;
             transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             overflow-y: auto; /* Adds a scrollbar if content is taller than the phone screen */
             padding-bottom: 100px; /* Ensures the bottom button isn't hugged against the edge */
@@ -207,7 +195,7 @@
         .dashboard {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 24px;
+            gap: 16px;
             margin-bottom: 35px;
         }
         .glass-panel {
@@ -216,7 +204,7 @@
             -webkit-backdrop-filter: var(--glass-blur);
             border: 1px solid var(--glass-border);
             border-radius: 16px;
-            padding: 24px 24px 32px 24px;
+            padding: 18px;
             box-shadow: var(--glass-shadow);
             position: relative;
             display: flex;
@@ -224,7 +212,7 @@
             overflow: hidden;
             min-height: 180px;
         }
-        .card { position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; padding-bottom: 24px !important; }
+        .card { position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; padding-bottom: 12px !important; }
         .card::after { content: ''; position: absolute; bottom: 0; left: 10%; width: 80%; height: 2px; opacity: 0.35; }
         .card.income-card::after { background: var(--accent-cyan); box-shadow: 0 0 10px var(--accent-cyan); }
         .card.expense-card::after { background: var(--accent-coral); box-shadow: 0 0 10px var(--accent-coral); }
@@ -250,7 +238,7 @@
         .proj-val.coral-tint { color: rgba(255,91,91,0.75); }
         .proj-val.cyan-tint { color: rgba(0,242,254,0.75); }
         .proj-val.green-tint { color: rgba(74,222,128,0.75); }
-        .workspace-layout { display: flex; flex-direction: column; gap: 24px; }
+        .workspace-layout { display: flex; flex-direction: column; gap: 16px; }
         form {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -259,7 +247,7 @@
             width: 100%;
         }
         .form-submit-wrapper { grid-column: span 1; }
-        .workspace-bottom-logs-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .workspace-bottom-logs-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
         @media (max-width: 1024px) {
             form { grid-template-columns: repeat(2, 1fr); }
             .form-submit-wrapper { grid-column: span 2; }
@@ -320,25 +308,11 @@
         .log-scroll-wrapper::-webkit-scrollbar-track { background: transparent; }
         .log-scroll-wrapper::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
         .scroller-list { list-style: none; display: flex; flex-direction: column; gap: 10px; width: 100%; }
-        .panel-height-handle {
-            position: absolute;
-            bottom: 0; left: 0;
-            width: 100%; height: 10px;
-            background: linear-gradient(0deg, rgba(0,242,254,0.12) 0%, transparent 100%);
-            border-bottom: 2px solid rgba(0,242,254,0.25);
-            cursor: ns-resize;
-            transition: background 0.2s, border-color 0.2s;
-            z-index: 10;
-        }
-        .panel-height-handle:hover, .panel-height-handle.active-dragging-handle {
-            background: linear-gradient(0deg, rgba(0,242,254,0.25) 0%, transparent 100%);
-            border-bottom-color: var(--accent-cyan);
-            box-shadow: 0 -4px 12px rgba(0,242,254,0.15);
-        }
+        
         .transaction-item {
             background: rgba(255,255,255,0.025);
             border: 1px solid rgba(255,255,255,0.04);
-            padding: 14px 16px;
+            padding: 10px 12px;
             border-radius: 12px;
             display: flex;
             justify-content: space-between;
@@ -407,7 +381,11 @@
         .calendar-inline-entry { font-size: 0.65rem; font-weight: 500; padding: 2px 4px; border-radius: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; line-height: 1.2; border: 1px solid transparent; flex-shrink: 0; }
         .calendar-inline-entry.entry-income { background: rgba(0,242,254,0.06); color: var(--accent-cyan); border-color: rgba(0,242,254,0.12); }
         .calendar-inline-entry.entry-expense { background: rgba(255,91,91,0.06); color: var(--accent-coral); border-color: rgba(255,91,91,0.12); }
-    </style>
+    
+#ledger-panel,#upcoming-panel{min-height:320px;}
+#calendar-panel{min-height:500px;}
+
+</style>
 </head>
 <body>
 
@@ -531,7 +509,7 @@
             </form>
         </div>
 
-        <div class="glass-panel" id="calendar-panel" style="height: 520px;">
+        <div class="glass-panel" id="calendar-panel" >
             <div class="calendar-header">
                 <div class="calendar-month-title section-title" style="margin-bottom: 0; padding-bottom: 0;">Calendar Overview</div>
                 <div class="calendar-nav-buttons">
@@ -549,13 +527,13 @@
         </div>
 
         <div class="workspace-bottom-logs-row">
-            <div class="glass-panel" id="ledger-panel" style="height: 400px;">
+            <div class="glass-panel" id="ledger-panel" >
                 <div class="section-title">Active Ledger Log</div>
                 <div class="log-scroll-wrapper">
                     <ul id="transaction-list" class="scroller-list"></ul>
                 </div>
             </div>
-            <div class="glass-panel" id="upcoming-panel" style="height: 400px;">
+            <div class="glass-panel" id="upcoming-panel" >
                 <div class="section-title">Upcoming Schedule</div>
                 <div class="log-scroll-wrapper">
                     <ul id="calendar-list" class="scroller-list"></ul>
@@ -1084,67 +1062,19 @@ document.getElementById('close-settings-btn').addEventListener('click', () => {
     }
 });
 
-    // ── Panel resize ──────────────────────────────────────────────────────────
-    function initStationaryFullWidthResizerEngine() {
-    // 1. Skip if mobile
-    if (window.innerWidth <= 768 || ('ontouchstart' in window)) return;
-
-    // 2. Select all panels EXCEPT the input-panel
-    document.querySelectorAll('.glass-panel:not(.card):not(#input-panel)').forEach(panel => {
-        if (panel.querySelector('.panel-height-handle')) return;
-        
-        const handle = document.createElement('div');
-        handle.className = 'panel-height-handle';
-        panel.appendChild(handle);
-        
-        handle.addEventListener('pointerdown', (e) => {
-            e.preventDefault();
-            handle.setPointerCapture(e.pointerId);
-            handle.classList.add('active-dragging-handle');
-            
-            const baseY = e.clientY;
-            const startH = panel.offsetHeight;
-            
-            const onMove = (me) => {
-                const h = startH + (me.clientY - baseY);
-                if (h >= 180 && h <= 900) panel.style.height = `${h}px`;
-            };
-            
-            const onUp = (ue) => {
-                handle.releasePointerCapture(ue.pointerId);
-                handle.classList.remove('active-dragging-handle');
-                const key = panel.getAttribute('id');
-                if (key) localStorage.setItem(`heightProfile_${key}`, panel.style.height);
-                window.removeEventListener('pointermove', onMove);
-                window.removeEventListener('pointerup', onUp);
-            };
-            window.addEventListener('pointermove', onMove);
-            window.addEventListener('pointerup', onUp);
-        });
-    });
-}
-
-    function restoreSavedPanelHeights() {
-        document.querySelectorAll('.glass-panel').forEach(panel => {
-            const key = panel.getAttribute('data-panel-id') || panel.getAttribute('id');
-            if (key) {
-                const h = localStorage.getItem(`heightProfile_${key}`);
-                if (h) panel.style.height = h;
-            }
-        });
-    }
+    
 
     // ── localStorage ─────────────────────────────────────────────────────────
     function updateLocalStorage() { localStorage.setItem('transactions', JSON.stringify(transactions)); }
 
     // ── Bootstrap ─────────────────────────────────────────────────────────────
     function init() {
-        restoreSavedPanelHeights();
+        
         checkSavedWallpaper();
         syncDashboardAndVisuals();
-        initStationaryFullWidthResizerEngine();
+        
     }
-    window.addEventListener('resize', initStationaryFullWidthResizerEngine);
+    
     init();
 </script>
 </body>
