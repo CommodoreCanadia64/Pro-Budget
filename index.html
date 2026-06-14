@@ -487,7 +487,7 @@
         <h4>Data Management</h4>
         <button class="action-btn btn-secondary" id="export-month-btn">📦 Save Data</button>
         <button class="action-btn btn-secondary" id="import-btn">📥 Load Data</button>
-        <button class="action-btn btn-secondary" id="pdf-btn">📄 Download PDF</button>
+        
         <input type="file" id="import-file-input" accept=".json" style="display: none;">
     </div>
     <div class="setting-section" style="margin-top: auto;">
@@ -687,7 +687,7 @@ document.getElementById('close-settings-btn').addEventListener('click', () => {
     const nextMonthBtn    = document.getElementById('next-month-btn');
     const importBtn       = document.getElementById('import-btn');
     const importFileInput = document.getElementById('import-file-input');
-    const pdfBtn          = document.getElementById('pdf-btn');
+    
 
     let calendarFocusDate = new Date();
     const todayStr = new Date().toISOString().split('T')[0];
@@ -1132,13 +1132,7 @@ document.getElementById('close-settings-btn').addEventListener('click', () => {
         reader.readAsText(file);
     });
 
-    pdfBtn.addEventListener('click', () => {
-        const hide = ['input-panel','calendar-panel','upcoming-panel'].map(id => document.getElementById(id));
-        hide.push(document.querySelector('.controls-container'), document.querySelector('.settings-drawer'));
-        hide.forEach(el => { if (el) el.style.display = 'none'; });
-        window.print();
-        hide.forEach(el => { if (el) el.style.display = ''; });
-    });
+    
 
     exportBtn.addEventListener('click', () => {
         if (transactions.length === 0) { alert("Your ledger is empty."); return; }
