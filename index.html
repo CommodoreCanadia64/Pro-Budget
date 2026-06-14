@@ -72,7 +72,9 @@
             flex-direction: column;
             align-items: center;
             position: relative;
-            overflow-x: hidden;
+            overflow-x: hidden; /* This is the fix for menus cutting off */
+            width: 100%;
+            margin: 0;
         }
         header {
             margin-bottom: 40px;
@@ -112,18 +114,36 @@
         }
         .container { width: 100%; max-width: 1400px; z-index: 1; }
         @media (max-width: 768px) {
-            header { flex-direction: column; gap: 15px; margin-bottom: 30px; }
-            .controls-container { position: static; transform: none; }
-        }
-        @media print {
-            body { background: white; color: black; padding: 20px; }
-            .dashboard, #ledger-panel { display: block !important; width: 100%; }
-            .glass-panel { border: 1px solid #ccc; box-shadow: none; background: white; margin-bottom: 20px; }
-            .log-scroll-wrapper { overflow: visible !important; height: auto !important; }
-            h1, h3 { color: black; }
-            .value, .transaction-amount { color: black !important; }
-            .panel-height-handle { display: none !important; }
-        }
+    header { flex-direction: column; gap: 15px; margin-bottom: 30px; }
+    
+    /* Settings Menu Overlay Fix */
+    .settings-drawer {
+        width: 100% !important; /* Drawer is full width on mobile */
+        right: -100%;
+        z-index: 9999;
+    }
+    .settings-drawer.open { right: 0; }
+
+    /* Calendar Fix */
+    .calendar-cell-events-container {
+        display: flex;
+        flex-direction: column;
+        overflow-y: visible;
+    }
+    .calendar-inline-entry {
+        font-size: 0.55rem;
+        padding: 1px 2px;
+        white-space: normal;
+        line-height: 1;
+        height: auto;
+    }
+    .calendar-day-cell {
+        height: auto;
+        min-height: 45px;
+    }
+    /* Stop the controls container from pushing layout */
+    .controls-container { position: static; transform: none; margin-top: 10px; }
+}
         .ctrl-btn {
             background: rgba(255,255,255,0.03);
             border: 1px solid rgba(255,255,255,0.08);
@@ -558,7 +578,17 @@
     const expenseContextLabel = document.getElementById('expense-context-label');
     const balanceContextLabel = document.getElementById('balance-context-label');
 
-    const drawer          = document.getElementById('settings-drawer');
+    const drawer = document.getElementById('settings-drawer');
+
+document.getElementById('open-settings-btn').addEventListener('click', () => {
+    drawer.classList.add('open');
+    document.body.style.overflow = 'hidden'; // Prevents scrolling when menu is open
+});
+
+document.getElementById('close-settings-btn').addEventListener('click', () => {
+    drawer.classList.remove('open');
+    document.body.style.overflow = ''; // Re-enables scrolling
+});
     const openSettingsBtn = document.getElementById('open-settings-btn');
     const closeSettingsBtn= document.getElementById('close-settings-btn');
     const wallInput       = document.getElementById('wallpaper-input');
