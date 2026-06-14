@@ -112,12 +112,28 @@
             z-index: -1;
             pointer-events: none;
         }
+
+        .modal-overlay {
+            display: none;
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(10, 14, 22, 0.95);
+            z-index: 200;
+            padding: 20px;
+            border-radius: 16px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active { display: block; }
+        .modal-content { color: var(--text-main); }
         .container { width: 100%; max-width: 1400px; z-index: 1; }
-       @media (max-width: 768px) {
-    /* FORCE THE SETTINGS MENU OFF-SCREEN */
-    .settings-drawer {
-        width: 100vw !important;
-        right: -100vw !important;
+
+        @media (max-width: 768px) {
+        /* FORCE THE SETTINGS MENU OFF-SCREEN */
+        .settings-drawer {
+            width: 100vw !important;
+            right: -100vw !important;
         background: rgba(10, 14, 22, 0.98) !important;
     }
     .settings-drawer.open {
@@ -125,10 +141,7 @@
     }
 
     /* FIX CALENDAR SKEWING */
-    #calendar-panel {
-        height: auto !important; /* Remove the 520px fixed height */
-        min-height: 300px;
-    }
+    #calendar-panel { position: relative; }
     
     .calendar-days-grid {
         display: grid !important; /* Switch to CSS Grid for better control */
@@ -137,10 +150,21 @@
     }
 
     .calendar-day-cell {
-        width: 100% !important;
-        height: 60px !important; /* Fixed row height prevents skewing */
-        overflow: hidden; /* Prevent text from breaking the grid */
-    }
+    background: rgba(10,14,23,0.3);
+    border: 1px solid rgba(255,255,255,0.02);
+    padding: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    position: relative;
+    width: calc((100% / 7) - 2px);
+    /* FORCE UNIFORM HEIGHT */
+    height: 85px !important; 
+    min-height: 85px !important;
+    max-height: 85px !important;
+    overflow: hidden; /* This hides overflow so the cell doesn't expand */
+    flex-shrink: 0;
+}
 
     .calendar-inline-entry {
         font-size: 0.5rem;
@@ -148,6 +172,36 @@
         text-overflow: ellipsis;
         overflow: hidden;
     }
+    .calendar-day-cell.expanded {
+    position: absolute;
+    top: 50px; /* Adjust based on your header height */
+    left: 20px;
+    width: calc(100% - 40px) !important;
+    height: 300px !important;
+    z-index: 100;
+    background: rgba(10, 14, 22, 0.95) !important;
+    border: 1px solid var(--accent-cyan) !important;
+    padding: 20px !important;
+    box-shadow: 0 0 20px rgba(0, 242, 254, 0.2);
+    border-radius: 12px;
+}
+
+.calendar-cell-events-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 100%;
+    /* Allow scrolling within the fixed cell if there are too many items */
+    overflow-y: auto; 
+    flex-grow: 1;
+    padding-right: 2px;
+}
+
+.calendar-day-cell.expanded .calendar-inline-entry {
+    font-size: 0.9rem !important;
+    padding: 8px !important;
+    white-space: normal !important;
+}
     /* Stop the controls container from pushing layout */
     .controls-container { position: static; transform: none; margin-top: 10px; }
 }
@@ -356,27 +410,40 @@
         .calendar-nav-btn:hover { background: rgba(255,255,255,0.08); }
         .calendar-grid-wrapper { display: flex; flex-direction: column; flex-grow: 1; min-height: 0; width: 100%; }
         .calendar-weekdays-row { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; padding-bottom: 6px; flex-shrink: 0; }
-        .calendar-days-grid { display: flex; flex-wrap: wrap; width: 100%; height: 100%; flex-grow: 1; }
-        .calendar-day-cell {
-            background: rgba(10,14,23,0.3);
-            border: 1px solid rgba(255,255,255,0.02);
-            padding: 3px;
-            display: flex;
-            flex-direction: column;
-            gap: 1px;
-            position: relative;
-            width: calc((100% / 7) - 2px);
-            height: calc((100% / 6) - 2px);
-            min-height: 0;
-            overflow: hidden;
-            flex-shrink: 0;
-        }
+.calendar-days-grid {
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr);
+    /* This forces every row to be 100px tall, no matter what */
+    grid-auto-rows: 100px; 
+    gap: 2px;
+    width: 100%;
+}
+
+.calendar-day-cell {
+    background: rgba(10, 14, 23, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    padding: 3px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    /* Remove 'height' percentages; let the grid handle it */
+    overflow: hidden; 
+}
         .calendar-day-cell.empty-cell { background: transparent; border: none; }
         .calendar-day-cell.current-today-cell { border-color: rgba(0,242,254,0.3); background: rgba(0,242,254,0.03); }
         .calendar-day-number { font-size: 0.78rem; font-weight: 600; color: var(--text-muted); align-self: flex-start; flex-shrink: 0; }
         .calendar-day-cell.current-today-cell .calendar-day-number { color: var(--accent-cyan); }
-        .calendar-cell-events-container { display: flex; flex-direction: column; gap: 2px; width: 100%; overflow-y: auto; flex-grow: 1; padding-right: 2px; }
-        .calendar-cell-events-container::-webkit-scrollbar { width: 2px; }
+.calendar-cell-events-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 100%;
+    /* Scroll only inside the specific cell if content overflows */
+    overflow-y: auto; 
+    flex-grow: 1;
+    margin-top: 2px;
+}        .calendar-cell-events-container::-webkit-scrollbar { width: 2px; }
         .calendar-cell-events-container::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.05); }
         .calendar-inline-entry { font-size: 0.65rem; font-weight: 500; padding: 2px 4px; border-radius: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; line-height: 1.2; border: 1px solid transparent; flex-shrink: 0; }
         .calendar-inline-entry.entry-income { background: rgba(0,242,254,0.06); color: var(--accent-cyan); border-color: rgba(0,242,254,0.12); }
@@ -384,6 +451,20 @@
     
 #ledger-panel,#upcoming-panel{min-height:320px;}
 #calendar-panel{min-height:500px;}
+
+
+#ledger-panel,
+#upcoming-panel{
+    height: 420px !important;
+    min-height: 420px !important;
+    max-height: 420px !important;
+}
+
+#ledger-panel .log-scroll-wrapper,
+#upcoming-panel .log-scroll-wrapper{
+    overflow-y:auto;
+    flex:1;
+}
 
 </style>
 </head>
@@ -509,22 +590,29 @@
             </form>
         </div>
 
-        <div class="glass-panel" id="calendar-panel" >
-            <div class="calendar-header">
-                <div class="calendar-month-title section-title" style="margin-bottom: 0; padding-bottom: 0;">Calendar Overview</div>
-                <div class="calendar-nav-buttons">
-                    <div class="calendar-month-title" id="calendar-title" style="margin-right: 14px; font-size: 1rem; align-self: center;">Month Year</div>
-                    <button class="calendar-nav-btn" id="prev-month-btn">&lt;</button>
-                    <button class="calendar-nav-btn" id="next-month-btn">&gt;</button>
-                </div>
-            </div>
-            <div class="calendar-grid-wrapper">
-                <div class="calendar-weekdays-row">
-                    <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
-                </div>
-                <div class="calendar-days-grid" id="calendar-days-container"></div>
-            </div>
+        <div class="glass-panel" id="calendar-panel">
+    <div id="calendar-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button id="close-modal-btn" class="ctrl-btn" style="margin-bottom:15px;">&times; Close</button>
+            <div id="modal-content-area"></div>
         </div>
+    </div>
+
+    <div class="calendar-header">
+        <div class="calendar-month-title section-title" style="margin-bottom: 0;">Calendar Overview</div>
+        <div class="calendar-nav-buttons">
+            <div class="calendar-month-title" id="calendar-title" style="margin-right: 14px; font-size: 1rem;">Month Year</div>
+            <button class="calendar-nav-btn" id="prev-month-btn">&lt;</button>
+            <button class="calendar-nav-btn" id="next-month-btn">&gt;</button>
+        </div>
+    </div>
+    <div class="calendar-grid-wrapper">
+        <div class="calendar-weekdays-row">
+            <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+        </div>
+        <div class="calendar-days-grid" id="calendar-days-container"></div>
+    </div>
+</div>
 
         <div class="workspace-bottom-logs-row">
             <div class="glass-panel" id="ledger-panel" >
@@ -679,46 +767,55 @@ document.getElementById('close-settings-btn').addEventListener('click', () => {
 
     // ── Calendar grid ─────────────────────────────────────────────────────────
     function renderCalendarGrid() {
-        calendarDaysContainer.innerHTML = '';
-        const year  = calendarFocusDate.getFullYear();
-        const month = calendarFocusDate.getMonth();
-        const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-        calendarTitleDisplay.innerText = `${monthNames[month]} ${year}`;
+    calendarDaysContainer.innerHTML = '';
+    const year  = calendarFocusDate.getFullYear();
+    const month = calendarFocusDate.getMonth();
+    const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    calendarTitleDisplay.innerText = `${monthNames[month]} ${year}`;
 
-        const firstDayIndex   = new Date(year, month, 1).getDay();
-        const totalDaysInMonth= new Date(year, month + 1, 0).getDate();
-        const systemToday     = new Date();
-        const isCurrentMonthView = systemToday.getFullYear() === year && systemToday.getMonth() === month;
+    const firstDayIndex   = new Date(year, month, 1).getDay();
+    const totalDaysInMonth= new Date(year, month + 1, 0).getDate();
+    
+    // Close modal logic
+    const modal = document.getElementById('calendar-modal');
+    document.getElementById('close-modal-btn').onclick = () => modal.classList.remove('active');
 
-        for (let i = 0; i < firstDayIndex; i++) {
-            const empty = document.createElement('div');
-            empty.className = 'calendar-day-cell empty-cell';
-            calendarDaysContainer.appendChild(empty);
-        }
-
-        for (let day = 1; day <= totalDaysInMonth; day++) {
-            const cell = document.createElement('div');
-            cell.className = 'calendar-day-cell';
-            if (isCurrentMonthView && systemToday.getDate() === day) cell.classList.add('current-today-cell');
-            cell.innerHTML = `<div class="calendar-day-number">${day}</div><div class="calendar-cell-events-container"></div>`;
-            const eventsContainer = cell.querySelector('.calendar-cell-events-container');
-            const targetDateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
-
-            transactions.forEach(t => {
-                if (transactionMatchesDate(t, targetDateStr)) {
-                    const entry = document.createElement('div');
-                    entry.className = `calendar-inline-entry entry-${t.type}`;
-                    const amt = t.amount.toLocaleString('en-US', { maximumFractionDigits: 0 });
-                    const recurIcon = (t.frequency && t.frequency !== 'one-time') ? ' 🔁' : '';
-                    entry.innerText = `${t.description}${recurIcon} ($${amt})`;
-                    entry.title = `${t.description} (${t.frequency}): ${t.type === 'income' ? '+' : '-'}$${t.amount}`;
-                    eventsContainer.appendChild(entry);
-                }
-            });
-
-            calendarDaysContainer.appendChild(cell);
-        }
+    for (let i = 0; i < firstDayIndex; i++) {
+        const empty = document.createElement('div');
+        empty.className = 'calendar-day-cell empty-cell';
+        calendarDaysContainer.appendChild(empty);
     }
+
+    for (let day = 1; day <= totalDaysInMonth; day++) {
+        const cell = document.createElement('div');
+        cell.className = 'calendar-day-cell';
+        
+        // Setup inner content
+        cell.innerHTML = `<div class="calendar-day-number">${day}</div><div class="calendar-cell-events-container"></div>`;
+        const eventsContainer = cell.querySelector('.calendar-cell-events-container');
+        const targetDateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+
+        // Populate content
+        transactions.forEach(t => {
+            if (transactionMatchesDate(t, targetDateStr)) {
+                const entry = document.createElement('div');
+                entry.className = `calendar-inline-entry entry-${t.type}`;
+                entry.innerText = `${t.description} ($${t.amount})`;
+                eventsContainer.appendChild(entry);
+            }
+        });
+
+        // Click handler to open modal
+        cell.addEventListener('click', () => {
+            if (eventsContainer.innerHTML.trim() !== "") {
+                document.getElementById('modal-content-area').innerHTML = `<h3>Day: ${day}</h3>${eventsContainer.innerHTML}`;
+                modal.classList.add('active');
+            }
+        });
+
+        calendarDaysContainer.appendChild(cell);
+    }
+}
 
     // ── Ledger & upcoming lists ───────────────────────────────────────────────
     function renderLists() {
@@ -1062,8 +1159,7 @@ document.getElementById('close-settings-btn').addEventListener('click', () => {
     }
 });
 
-    
-
+ 
     // ── localStorage ─────────────────────────────────────────────────────────
     function updateLocalStorage() { localStorage.setItem('transactions', JSON.stringify(transactions)); }
 
